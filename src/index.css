@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #ececec;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: rgb(169, 169, 169) transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(169, 169, 169);
+  border-radius: 10px;
+  border: 3px solid #ececec;
+}

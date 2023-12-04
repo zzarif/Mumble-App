@@ -1,0 +1,17 @@
+[
+    {
+        "title": "District",
+        "path": "#/district",
+        "imageLink": "/navbar/products.png"
+    },
+    {
+        "title": "Shopname",
+        "path": "#/shopname",
+        "imageLink": "/navbar/add-product.png"
+    },
+    {
+        "title": "Settings",
+        "path": "#/settings",
+        "imageLink": "/navbar/settings.png"
+    }
+]

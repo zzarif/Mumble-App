@@ -1,0 +1,53 @@
+.card {
+  width: 30rem;
+  height: 24rem;
+  min-height: 24rem;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+  padding: 2.5rem;
+}
+
+.headContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  width: 100%;
+  text-align: left;
+  font-size: 2rem;
+  font-family: "Poppins";
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  width: 100%;
+  text-align: left;
+  font-size: 0.9rem;
+  font-family: "Inter";
+}
+
+/* Small screen */
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 70%;
+  }
+}
