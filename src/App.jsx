@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import LandingPage from "./pages/landingpage/LandingPage";
 import ProductList from "./pages/product-list/ProductList";
 import QRItemList from "./pages/qr-item-list/QRItemList";

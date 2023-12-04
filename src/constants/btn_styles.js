@@ -1,4 +1,5 @@
 export const btn_styles = {
+  width: "fit-content",
   color: "white",
   backgroundColor: "#ff007a",
   borderRadius: "0.8rem",

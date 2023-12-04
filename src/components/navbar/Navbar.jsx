@@ -11,7 +11,7 @@ const Navbar = ({ children }) => {
           <li className={styles.logo}>
             <a href="#" className={styles.navLink}>
               <span className={`${styles.linkText} ${styles.logoText}`}>
-                Products
+                Mumble
               </span>
               <img src="/navbar/right-arrow.png"></img>
             </a>

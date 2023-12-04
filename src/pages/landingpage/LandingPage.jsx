@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import { urls } from "../../constants/urls";
 
 function LandingPage() {
-  return localStorage.getItem("coobiz") ? (
+  return localStorage.getItem("mumble") ? (
     <Navigate to={urls.DISTRICT} />
   ) : (
     <div>
