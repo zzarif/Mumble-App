@@ -10,11 +10,14 @@ import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
+    fontSize: "0.8rem",
+    fontFamily: "Poppins",
     backgroundColor: "#2f2f3d",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: "0.8rem",
+    fontFamily: "Inter",
   },
 }));
 
@@ -34,7 +37,7 @@ function TableView({ resultList, totalAmount }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <StyledTableRow>
-            <StyledTableCell><b>ReceiptNumber</b></StyledTableCell>
+            <StyledTableCell><b>Receipt Number</b></StyledTableCell>
             <StyledTableCell align="right"><b>Date</b></StyledTableCell>
             <StyledTableCell align="right"><b>Shopname</b></StyledTableCell>
             <StyledTableCell align="right"><b>Shopkeeper</b></StyledTableCell>
@@ -68,7 +71,7 @@ function TableView({ resultList, totalAmount }) {
               <StyledTableCell align="right"></StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
-              <StyledTableCell align="right">Total: {totalAmount}</StyledTableCell>
+              <StyledTableCell align="right"><b>Total: {totalAmount}</b></StyledTableCell>
             </StyledTableRow>
           )}
         </TableBody>
