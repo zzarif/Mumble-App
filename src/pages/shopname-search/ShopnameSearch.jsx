@@ -26,12 +26,18 @@ import { in_props } from "../../constants/in_props";
 import { select_styles } from "../../constants/select_styles";
 
 function ShopnameSearch() {
+  // today date mm/dd/yyyy
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
+  today = mm + "/" + dd + "/" + yyyy;
   // all states
   const [district, setDistrict] = useState("");
   const [upozilla, setUpozilla] = useState("");
   const [shopname, setShopname] = useState("");
-  const [startDate, setStartDate] = useState(dayjs("2022-04-17"));
-  const [endDate, setEndDate] = useState(dayjs("2022-04-17"));
+  const [startDate, setStartDate] = useState(dayjs(today));
+  const [endDate, setEndDate] = useState(dayjs(today));
   const [resultList, setResultList] = useState([]);
   const [totalAmount, setTotalAmount] = useState("");
 
@@ -66,14 +72,54 @@ function ShopnameSearch() {
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
           <div className={styles.rowContainer}>
-            <TextField
-              fullWidth
-              value={shopname}
-              onChange={(e) => setShopname(e.target.value)}
-              InputProps={in_props}
-              placeholder="Iman Store"
-              label="Shopname"
-            />
+            <FormControl sx={{ m: 1, minWidth: "100%" }}>
+              <InputLabel id="demo-simple-select-helper-label">
+                District
+              </InputLabel>
+              <Select
+                fullWidth
+                value={district}
+                sx={select_styles}
+                onChange={(e) => setDistrict(e.target.value)}
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="District"
+              >
+                <MenuItem value="">
+                  <em>Select</em>
+                </MenuItem>
+                {districtList.map((obj) => (
+                  <MenuItem value={obj.district}>{obj.district}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+
+          <div className={styles.rowContainer}>
+            <FormControl sx={{ m: 1, minWidth: "100%" }}>
+              <InputLabel id="demo-simple-select-helper-label">
+                Shopname
+              </InputLabel>
+              <Select
+                fullWidth
+                value={shopname}
+                sx={select_styles}
+                onChange={(e) => setShopname(e.target.value)}
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="Shopname"
+              >
+                <MenuItem value="">
+                  <em>Select</em>
+                </MenuItem>
+                <MenuItem value="Alam Store">
+                  Alam Store
+                </MenuItem>
+                <MenuItem value="Iman Store">
+                  Iman Store
+                </MenuItem>
+              </Select>
+            </FormControl>
           </div>
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -1,63 +1,75 @@
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#2f2f3d",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 function TableView({ resultList, totalAmount }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
-            <TableCell>ReceiptNumber</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Shopkeeper</TableCell>
-            <TableCell align="right">Girl</TableCell>
-            <TableCell align="right">Total Amount</TableCell>
-          </TableRow>
+          <StyledTableRow>
+            <StyledTableCell><b>ReceiptNumber</b></StyledTableCell>
+            <StyledTableCell align="right"><b>Date</b></StyledTableCell>
+            <StyledTableCell align="right"><b>Shopname</b></StyledTableCell>
+            <StyledTableCell align="right"><b>Shopkeeper</b></StyledTableCell>
+            <StyledTableCell align="right"><b>Girl</b></StyledTableCell>
+            <StyledTableCell align="right"><b>Total Amount</b></StyledTableCell>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {resultList.map((row) => (
-            <TableRow
+            <StyledTableRow
               key={row.ReceiptNumber}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
                 {row.ReceiptNumber}
               </TableCell>
-              <TableCell align="right">{row.Date}</TableCell>
-              <TableCell align="right">{row.ShopKeeper.name}</TableCell>
-              <TableCell align="right">{row.Girl.strName}</TableCell>
-              <TableCell align="right">{row.grossamt}</TableCell>
-            </TableRow>
+              <StyledTableCell align="right">{row.Date}</StyledTableCell>
+              <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
+              <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
+              <StyledTableCell align="right">{row.Girl.strName}</StyledTableCell>
+              <StyledTableCell align="right">{row.grossamt}</StyledTableCell>
+            </StyledTableRow>
           ))}
           {totalAmount && (
-            <TableRow
+            <StyledTableRow
               key={-1}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row"></TableCell>
-              <TableCell align="right"></TableCell>
-              <TableCell align="right"></TableCell>
-              <TableCell align="right"></TableCell>
-              <TableCell align="right">Total: {totalAmount}</TableCell>
-            </TableRow>
+              <StyledTableCell component="th" scope="row"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right">Total: {totalAmount}</StyledTableCell>
+            </StyledTableRow>
           )}
         </TableBody>
       </Table>

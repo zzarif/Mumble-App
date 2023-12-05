@@ -26,12 +26,18 @@ import { in_props } from "../../constants/in_props";
 import { select_styles } from "../../constants/select_styles";
 
 function DistrictSearch() {
+  // today date mm/dd/yyyy
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
+  today = mm + "/" + dd + "/" + yyyy;
   // all states
   const [district, setDistrict] = useState("");
   const [upozilla, setUpozilla] = useState("");
   const [shopname, setShopname] = useState("");
-  const [startDate, setStartDate] = useState(dayjs("2022-04-17"));
-  const [endDate, setEndDate] = useState(dayjs("2022-04-17"));
+  const [startDate, setStartDate] = useState(dayjs(today));
+  const [endDate, setEndDate] = useState(dayjs(today));
   const [resultList, setResultList] = useState([]);
   const [totalAmount, setTotalAmount] = useState("");
 
@@ -62,7 +68,7 @@ function DistrictSearch() {
 
   return (
     <>
-      <div className={styles.pageTitle}>Search by District</div>
+      <div className={styles.pageTitle}>Search by Upozilla</div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
           <div className={styles.rowContainer}>
