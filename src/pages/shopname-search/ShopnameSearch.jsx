@@ -22,6 +22,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TableView from "../../components/tableview/TableView";
+import { in_props } from "../../constants/in_props";
+import { select_styles } from "../../constants/select_styles";
 
 function ShopnameSearch() {
   // all states
@@ -60,89 +62,59 @@ function ShopnameSearch() {
 
   return (
     <>
-      <div className={styles.pageTitle}>Search by District</div>
-      <div className={styles.catContainer}></div>
-      <div className={styles.boxContainer}>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">District</InputLabel>
-          <Select
-            fullWidth
-            value={district}
-            sx={{ borderRadius: "0.8rem" }}
-            onChange={(e) => setDistrict(e.target.value)}
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            label="District"
-          >
-            <MenuItem value="">
-              <em>Select</em>
-            </MenuItem>
-            {districtList.map((obj) => (
-              <MenuItem value={obj.district}>{obj.district}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">Upozilla</InputLabel>
-          <Select
-            fullWidth
-            value={upozilla}
-            sx={{ borderRadius: "0.8rem" }}
-            onChange={(e) => setUpozilla(e.target.value)}
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            label="Upozilla"
-          >
-            <MenuItem value="">
-              <em>Select</em>
-            </MenuItem>
-            {districtList.map((obj) => (
-              <MenuItem value={obj.district}>{obj.district}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
-        <TextField
-          fullWidth
-          value={shopname}
-          onChange={(e) => setShopname(e.target.value)}
-          InputProps={{ style: { borderRadius: "0.8rem" } }}
-          placeholder="Iman Store"
-          label="Shopname"
-        />
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DatePicker", "DatePicker"]}>
-            <DatePicker
-              label="Start Date"
-              value={startDate}
-              onChange={(newValue) => setStartDate(newValue)}
+      <div className={styles.pageTitle}>Search by Shopname</div>
+      <div className={styles.bigContainer}>
+        <div className={styles.colContainer}>
+          <div className={styles.rowContainer}>
+            <TextField
+              fullWidth
+              value={shopname}
+              onChange={(e) => setShopname(e.target.value)}
+              InputProps={in_props}
+              placeholder="Iman Store"
+              label="Shopname"
             />
+          </div>
 
-            <DatePicker
-              label="End Date"
-              value={endDate}
-              onChange={(newValue) => setEndDate(newValue)}
-            />
-          </DemoContainer>
-        </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker", "DatePicker"]}>
+              <div className={styles.rowContainer2}>
+                <DatePicker
+                  label="Start Date"
+                  value={startDate}
+                  onChange={(newValue) => setStartDate(newValue)}
+                />
+                <DatePicker
+                  label="End Date"
+                  value={endDate}
+                  onChange={(newValue) => setEndDate(newValue)}
+                />
+              </div>
+            </DemoContainer>
+          </LocalizationProvider>
 
-        <LoadingButton
-          loading={loading}
-          loadingPosition="start"
-          startIcon={<Search />}
-          onClick={loadResultList}
-          variant="contained"
-          sx={btn_styles2}
-        >
-          <span>Search</span>
-        </LoadingButton>
+          <div style={{ height: "1rem" }}></div>
+
+          <div className={styles.rowContainer}>
+            <LoadingButton
+              loading={loading}
+              loadingPosition="start"
+              startIcon={<Search />}
+              onClick={loadResultList}
+              variant="contained"
+              sx={btn_styles2}
+            >
+              <span>Search</span>
+            </LoadingButton>
+          </div>
+        </div>
       </div>
-      <div className={styles.boxContainer}></div>
-      <div className={styles.boxContainer}>
-        <TableView resultList={resultList} totalAmount={totalAmount} />
-      </div>
+
+      <div style={{ height: "2rem" }}></div>
+
+      <TableView resultList={resultList} totalAmount={totalAmount} />
+
+      <div style={{ height: "6rem" }}></div>
     </>
   );
 }
