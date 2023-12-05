@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./qr.module.css";
-import QRItem from "../../components/qr-item/QRItem";
+// import QRItem from "../../components/qr-item/QRItem";
 import { Button, Chip, CircularProgress, TextField } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { Search } from "@mui/icons-material";
@@ -135,7 +135,7 @@ function QRItemList() {
         ></Button>
       </div>
       <div className={styles.boxContainer}>
-        {itemList.map(
+        {/* {itemList.map(
             (item,idx) => (
                 <QRItem
                   key={idx}
@@ -143,7 +143,7 @@ function QRItemList() {
                 />
               )
           )}
-          {loading && <CircularProgress sx={{ color: 'grey.500' }} />}
+          {loading && <CircularProgress sx={{ color: 'grey.500' }} />} */}
       </div>
     </>
   );

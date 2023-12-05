@@ -16,13 +16,6 @@
   gap: 0.5rem;
 }
 
-.searchContainer {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 0 1.5rem 1.5rem;
-  gap: 1rem;
-}
-
 .boxContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -34,11 +27,5 @@
 @media only screen and (max-width: 600px) {
   .boxContainer {
     margin-bottom: 5rem;
-  }
-
-  .searchContainer {
-    width: 95%;
-    padding: 0 0 1.5rem 1rem;
-    gap: 1rem;
   }
 }

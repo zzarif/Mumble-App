@@ -1,150 +1,147 @@
 import React, { useEffect, useState } from "react";
 import styles from "./productlist.module.css";
 import ProductItem from "../../components/product-item/ProductItem";
-import { Button, Chip, CircularProgress, TextField } from "@mui/material";
+import {
+  Button,
+  Chip,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { methods } from "../../constants/methods";
-import { in_props } from "../../constants/in_props";
 import { Search } from "@mui/icons-material";
-import SyncServer from "../../components/sync/SyncServer";
-import { search_btn } from "../../constants/search_btn";
-
+import districtList from "./districtList.json";
+import { LoadingButton } from "@mui/lab";
+import { btn_styles2 } from "../../constants/btn_styles2";
+import dayjs from "dayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import TableView from "../../components/tableview/TableView";
 
 function ProductList() {
-  // Search params
-  const page_size = 20;
-  const [page,setPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState(0);
-  const [searchDesc, setSearchDesc] = useState("");
-  const [categoryList, setCategoryList] = useState([]);
-  const [productList, setProductList] = useState([]);
+  // all states
+  const [district, setDistrict] = useState("");
+  const [upozilla, setUpozilla] = useState("");
+  const [shopname, setShopname] = useState("");
+  const [startDate, setStartDate] = useState(dayjs("2022-04-17"));
+  const [endDate, setEndDate] = useState(dayjs("2022-04-17"));
+  const [resultList, setResultList] = useState([]);
+  const [totalAmount, setTotalAmount] = useState("");
 
   // Pagination loader
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // Called only once
-  useEffect(() => {
-    // fetch all categories on load
-    loadAllCategories();
-    // add scroll listener for pagination
-    window.addEventListener("scroll", handleScroll);
-    // clean listener
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Called on category select or pagination
-  useEffect(() => {
-    console.log("CAT CHANGED!!!!!!!!");
-    loadProductsPerPage();
-  }, [page,selectedCategory]);
-
-  // Handle scroll events for pagination
-  const handleScroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop + 1
-      >= document.documentElement.scrollHeight) {
-        setLoading(true);
-        setPage((prev) => prev+1);
-    }
-  }
-
-  // Load all categories
-  const loadAllCategories = async () => {
-    const url = new URL(import.meta.env.VITE_API_BASE_URL
-      +import.meta.env.VITE_API_ALL_CATEGORIES);
-    url.searchParams.append("page",1);
-    url.searchParams.append("page_size",100);
+  // load result list given params
+  const loadResultList = async () => {
+    setLoading(true);
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "invoices/web");
+    url.searchParams.append("district", "");
+    url.searchParams.append("upzila", "");
+    url.searchParams.append("shopname", "");
+    url.searchParams.append("startDate", "");
+    url.searchParams.append("endDate", "");
     console.log(String(url));
-    await fetch(url,{
+    await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
-    }).then((res) => res.json())
-    .then((obj) => {
-      setCategoryList(obj.data);
-    });
-  }
-
-  // load more products given params
-  const loadProductsPerPage = async () => {
-    console.log("SELECTED CAT -> "+selectedCategory);
-    console.log("SEARCH DESC -> "+searchDesc);
-    console.log("PAGE -> "+page);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL
-      +import.meta.env.VITE_API_ALL_PRODUCTS);
-    url.searchParams.append("page",page);
-    url.searchParams.append("page_size",page_size);
-    url.searchParams.append("strItemDesc",searchDesc);
-    if(selectedCategory!==0) 
-    url.searchParams.append("nCategoryCode",selectedCategory);
-    console.log(String(url));
-    await fetch(url,{
-      method: methods.GET,
-      headers: { "Content-Type": "application/json" },
-    }).then((res) => res.json())
-    .then((obj) => {
-      setProductList((prev) => {return [...prev,...obj.data]});
-      setLoading(false);
-    });
-  }
-
-  // On new category select
-  const handleCategorySelect = (categoryId) => {
-    console.log("Category -> "+categoryId);
-    setProductList([]);
-    setLoading(true);setPage(1);
-    setSelectedCategory(categoryId);
+    })
+      .then((res) => res.json())
+      .then((obj) => {
+        setResultList(obj.result);
+        setTotalAmount(obj.total.totalAmount);
+        setLoading(false);
+      });
   };
-
-  // On search button pressed
-  const handleSearch = () => {
-    setProductList([]);
-    setLoading(true);setPage(1);
-    loadProductsPerPage();
-  }
 
   return (
     <>
-      <div className={styles.pageTitle}>Product List</div>
-      <div className={styles.catContainer}>
-        {categoryList.map((category) =>
-          selectedCategory === category.nCategoryID ? (
-            <Chip
-              key={category.nCategoryID}
-              label={category.strCategoryDesc}
-              onClick={() => handleCategorySelect(category.nCategoryID)}
-              disabled
-            />
-          ) : (
-            <Chip
-              key={category.nCategoryID}
-              label={category.strCategoryDesc}
-              onClick={() => handleCategorySelect(category.nCategoryID)}
-              variant="outlined"
-            />
-        ))}
-      </div>
-      <div className={styles.searchContainer}>
-        <SyncServer />
-        <TextField
-          value={searchDesc}
-          onChange={(e) => setSearchDesc(e.target.value)}
-          InputProps={in_props}
-          placeholder="Heineken"
-        />
-        <Button
-          onClick={handleSearch}
-          startIcon={<Search />}
-          sx={search_btn}
-        ></Button>
-      </div>
+      <div className={styles.pageTitle}>Search by District</div>
+      <div className={styles.catContainer}></div>
       <div className={styles.boxContainer}>
-        {productList.map(
-            (product,idx) => (
-                <ProductItem
-                  key={idx}
-                  product={product}
-                />
-              )
-          )}
-          {loading && <CircularProgress sx={{ color: 'grey.500' }} />}
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-helper-label">District</InputLabel>
+          <Select
+            fullWidth
+            value={district}
+            sx={{ borderRadius: "0.8rem" }}
+            onChange={(e) => setDistrict(e.target.value)}
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            label="District"
+          >
+            <MenuItem value="">
+              <em>Select</em>
+            </MenuItem>
+            {districtList.map((obj) => (
+              <MenuItem value={obj.district}>{obj.district}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-helper-label">District</InputLabel>
+          <Select
+            fullWidth
+            value={upozilla}
+            sx={{ borderRadius: "0.8rem" }}
+            onChange={(e) => setUpozilla(e.target.value)}
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            label="District"
+          >
+            <MenuItem value="">
+              <em>Select</em>
+            </MenuItem>
+            {districtList.map((obj) => (
+              <MenuItem value={obj.district}>{obj.district}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <TextField
+          fullWidth
+          value={shopname}
+          onChange={(e) => setShopname(e.target.value)}
+          InputProps={{ style: { borderRadius: "0.8rem" } }}
+          placeholder="Iman Store"
+          label="Shopname"
+        />
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["DatePicker", "DatePicker"]}>
+            <DatePicker
+              label="Start Date"
+              value={startDate}
+              onChange={(newValue) => setStartDate(newValue)}
+            />
+
+            <DatePicker
+              label="End Date"
+              value={endDate}
+              onChange={(newValue) => setEndDate(newValue)}
+            />
+          </DemoContainer>
+        </LocalizationProvider>
+
+        <LoadingButton
+          loading={loading}
+          loadingPosition="start"
+          startIcon={<Search />}
+          onClick={loadResultList}
+          variant="contained"
+          sx={btn_styles2}
+        >
+          <span>Search</span>
+        </LoadingButton>
+      </div>
+      <div className={styles.boxContainer}></div>
+      <div className={styles.boxContainer}>
+        <TableView resultList={resultList} totalAmount={totalAmount} />
       </div>
     </>
   );
