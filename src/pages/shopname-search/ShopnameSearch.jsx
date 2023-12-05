@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./productlist.module.css";
+import styles from "./shopname.module.css";
 import ProductItem from "../../components/product-item/ProductItem";
 import {
   Button,
@@ -23,7 +23,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TableView from "../../components/tableview/TableView";
 
-function ProductList() {
+function ShopnameSearch() {
   // all states
   const [district, setDistrict] = useState("");
   const [upozilla, setUpozilla] = useState("");
@@ -53,7 +53,7 @@ function ProductList() {
       .then((res) => res.json())
       .then((obj) => {
         setResultList(obj.result);
-        setTotalAmount(obj.total.totalAmount);
+        setTotalAmount(obj.total[0].totalAmount);
         setLoading(false);
       });
   };
@@ -84,7 +84,7 @@ function ProductList() {
         </FormControl>
 
         <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">District</InputLabel>
+          <InputLabel id="demo-simple-select-helper-label">Upozilla</InputLabel>
           <Select
             fullWidth
             value={upozilla}
@@ -92,7 +92,7 @@ function ProductList() {
             onChange={(e) => setUpozilla(e.target.value)}
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
-            label="District"
+            label="Upozilla"
           >
             <MenuItem value="">
               <em>Select</em>
@@ -147,4 +147,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default ShopnameSearch;

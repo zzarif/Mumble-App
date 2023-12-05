@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import LandingPage from "./pages/landingpage/LandingPage";
-import ProductList from "./pages/product-list/ProductList";
-import QRItemList from "./pages/qr-item-list/QRItemList";
 import Settings from "./pages/settings/Settings";
 import PrivateRoutes from "./pages/landingpage/PrivateRoutes";
 import Navbar from "./components/navbar/Navbar";
@@ -11,6 +9,8 @@ import "@fontsource/poppins";
 import "@fontsource/inter";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import DistrictSearch from "./pages/district-search/DistrictSearch";
+import ShopnameSearch from "./pages/shopname-search/ShopnameSearch";
 
 function App() {
   useEffect(() => {
@@ -22,8 +22,8 @@ function App() {
         <Routes>
           <Route path={urls.LANDING_PAGE} element={<LandingPage />} />
           <Route element={<PrivateRoutes/>}>
-            <Route path={urls.DISTRICT} element={<Navbar><ProductList/></Navbar>} />
-            <Route path={urls.SHOPNAME} element={<Navbar><QRItemList/></Navbar>} />
+            <Route path={urls.DISTRICT} element={<Navbar><DistrictSearch/></Navbar>} />
+            <Route path={urls.SHOPNAME} element={<Navbar><ShopnameSearch/></Navbar>} />
             <Route path={urls.SETTINGS} element={<Navbar><Settings/></Navbar>} />
           </Route>
         </Routes>

@@ -47,17 +47,18 @@ function TableView({ resultList, totalAmount }) {
               <TableCell align="right">{row.grossamt}</TableCell>
             </TableRow>
           ))}
-          <TableRow
-            key={-1}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-            </TableCell>
-            <TableCell align="right"></TableCell>
-            <TableCell align="right"></TableCell>
-            <TableCell align="right"></TableCell>
-            <TableCell align="right">Total Amount: {totalAmount}</TableCell>
-          </TableRow>
+          {totalAmount && (
+            <TableRow
+              key={-1}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row"></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right">Total: {totalAmount}</TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>
