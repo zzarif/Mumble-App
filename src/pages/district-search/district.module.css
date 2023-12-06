@@ -23,7 +23,16 @@
   gap: 1.5rem;
 }
 
-.rowContainer {
+.rowContainer0 {
+  flex:2;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+
+.rowContainer1 {
   flex:1;
   display: flex;
   justify-content: space-around;
@@ -48,7 +57,11 @@
     gap: 0rem;
   }
 
-  .rowContainer {
+  .rowContainer0 {
+    width: 100%;
+  }
+
+  .rowContainer1 {
     width: 100%;
   }
 }

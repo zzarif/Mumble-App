@@ -71,7 +71,7 @@ function DistrictSearch() {
       <div className={styles.pageTitle}>Search by Upozilla</div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
-          <div className={styles.rowContainer}>
+          <div className={styles.rowContainer0}>
             <FormControl sx={{ m: 1, minWidth: "46%" }}>
               <InputLabel id="demo-simple-select-helper-label">
                 District
@@ -116,15 +116,31 @@ function DistrictSearch() {
               </Select>
             </FormControl>
           </div>
-          <div className={styles.rowContainer}>
-            <TextField
-              fullWidth
-              value={shopname}
-              onChange={(e) => setShopname(e.target.value)}
-              InputProps={in_props}
-              placeholder="Iman Store"
-              label="Shopname"
-            />
+          <div className={styles.rowContainer1}>
+          <FormControl sx={{ m: 1, minWidth: "100%" }}>
+              <InputLabel id="demo-simple-select-helper-label">
+                Shopname
+              </InputLabel>
+              <Select
+                fullWidth
+                value={shopname}
+                sx={select_styles}
+                onChange={(e) => setShopname(e.target.value)}
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="Shopname"
+              >
+                <MenuItem value="">
+                  <em>Select</em>
+                </MenuItem>
+                <MenuItem value="Alam Store">
+                  Alam Store
+                </MenuItem>
+                <MenuItem value="Iman Store">
+                  Iman Store
+                </MenuItem>
+              </Select>
+            </FormControl>
           </div>
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -146,7 +162,7 @@ function DistrictSearch() {
 
           <div style={{ height: "1rem" }}></div>
 
-          <div className={styles.rowContainer}>
+          <div className={styles.rowContainer1}>
             <LoadingButton
               loading={loading}
               loadingPosition="start"
