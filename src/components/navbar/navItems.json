@@ -1,12 +1,12 @@
 [
     {
-        "title": "District",
-        "path": "#/district",
+        "title": "Dispatches",
+        "path": "#/dispatches",
         "imageLink": "/navbar/products.png"
     },
     {
-        "title": "Shopname",
-        "path": "#/shopname",
+        "title": "Shopkeeper",
+        "path": "#/shopkeeper",
         "imageLink": "/navbar/add-product.png"
     },
     {

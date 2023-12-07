@@ -1,7 +1,7 @@
 export const urls = {
     DOMAIN: "",
     LANDING_PAGE: "/",
-    DISTRICT: "district",
-    SHOPNAME: "shopname",
+    DISTRICT: "dispatches",
+    SHOPNAME: "shopkeeper",
     SETTINGS: "settings",
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./shopname.module.css";
+import styles from "./dispatch.module.css";
 import ProductItem from "../../components/product-item/ProductItem";
 import {
   Button,
@@ -21,11 +21,11 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import TableView from "../../components/tableview/TableView";
+import DispatchTable from "../../components/tableview/DispatchTable";
 import { in_props } from "../../constants/in_props";
 import { select_styles } from "../../constants/select_styles";
 
-function ShopnameSearch() {
+function Dispatches() {
   // today date mm/dd/yyyy
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
@@ -68,11 +68,11 @@ function ShopnameSearch() {
 
   return (
     <>
-      <div className={styles.pageTitle}>Search by Shopname</div>
+      <div className={styles.pageTitle}>Dispatches</div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
-          <div className={styles.rowContainer}>
-            <FormControl sx={{ m: 1, minWidth: "100%" }}>
+          <div className={styles.rowContainer0}>
+            <FormControl sx={{ m: 1, minWidth: "46%" }}>
               <InputLabel id="demo-simple-select-helper-label">
                 District
               </InputLabel>
@@ -93,10 +93,31 @@ function ShopnameSearch() {
                 ))}
               </Select>
             </FormControl>
-          </div>
 
-          <div className={styles.rowContainer}>
-            <FormControl sx={{ m: 1, minWidth: "100%" }}>
+            <FormControl sx={{ m: 1, minWidth: "46%" }}>
+              <InputLabel id="demo-simple-select-helper-label">
+                Upozilla
+              </InputLabel>
+              <Select
+                fullWidth
+                value={upozilla}
+                sx={select_styles}
+                onChange={(e) => setUpozilla(e.target.value)}
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="Upozilla"
+              >
+                <MenuItem value="">
+                  <em>Select</em>
+                </MenuItem>
+                {districtList.map((obj) => (
+                  <MenuItem value={obj.district}>{obj.district}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+          <div className={styles.rowContainer1}>
+          <FormControl sx={{ m: 1, minWidth: "100%" }}>
               <InputLabel id="demo-simple-select-helper-label">
                 Shopname
               </InputLabel>
@@ -141,7 +162,7 @@ function ShopnameSearch() {
 
           <div style={{ height: "1rem" }}></div>
 
-          <div className={styles.rowContainer}>
+          <div className={styles.rowContainer1}>
             <LoadingButton
               loading={loading}
               loadingPosition="start"
@@ -158,11 +179,11 @@ function ShopnameSearch() {
 
       <div style={{ height: "2rem" }}></div>
 
-      <TableView resultList={resultList} totalAmount={totalAmount} />
+      <DispatchTable resultList={resultList} totalAmount={totalAmount} />
 
       <div style={{ height: "6rem" }}></div>
     </>
   );
 }
 
-export default ShopnameSearch;
+export default Dispatches;

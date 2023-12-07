@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./district.module.css";
+import styles from "./shopkeeper.module.css";
 import ProductItem from "../../components/product-item/ProductItem";
 import {
   Button,
@@ -21,11 +21,12 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import TableView from "../../components/tableview/TableView";
+import TableView from "../../components/tableview/DispatchTable";
 import { in_props } from "../../constants/in_props";
 import { select_styles } from "../../constants/select_styles";
+import ShopkeeperTable from "../../components/tableview/ShopkeeperTable";
 
-function DistrictSearch() {
+function Shopkeeper() {
   // today date mm/dd/yyyy
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
@@ -68,7 +69,7 @@ function DistrictSearch() {
 
   return (
     <>
-      <div className={styles.pageTitle}>Search by Upozilla</div>
+      <div className={styles.pageTitle}>Shopkeeper Management</div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
           <div className={styles.rowContainer0}>
@@ -179,11 +180,11 @@ function DistrictSearch() {
 
       <div style={{ height: "2rem" }}></div>
 
-      <TableView resultList={resultList} totalAmount={totalAmount} />
+      <ShopkeeperTable resultList={resultList} totalAmount={totalAmount} />
 
       <div style={{ height: "6rem" }}></div>
     </>
   );
 }
 
-export default DistrictSearch;
+export default Shopkeeper;

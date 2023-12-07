@@ -31,7 +31,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function TableView({ resultList, totalAmount }) {
+function DispatchTable({ resultList, totalAmount }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -41,7 +41,10 @@ function TableView({ resultList, totalAmount }) {
             <StyledTableCell align="right"><b>Date</b></StyledTableCell>
             <StyledTableCell align="right"><b>Shopname</b></StyledTableCell>
             <StyledTableCell align="right"><b>Shopkeeper</b></StyledTableCell>
-            <StyledTableCell align="right"><b>Girl</b></StyledTableCell>
+            <StyledTableCell align="right"><b>District</b></StyledTableCell>
+            <StyledTableCell align="right"><b>Upozilla</b></StyledTableCell>
+            <StyledTableCell align="right"><b>Beneficiary Name</b></StyledTableCell>
+            <StyledTableCell align="right"><b>Beneficiary Phone Number</b></StyledTableCell>
             <StyledTableCell align="right"><b>Total Amount</b></StyledTableCell>
           </StyledTableRow>
         </TableHead>
@@ -54,10 +57,13 @@ function TableView({ resultList, totalAmount }) {
               <TableCell component="th" scope="row">
                 {row.ReceiptNumber}
               </TableCell>
-              <StyledTableCell align="right">{row.Date}</StyledTableCell>
+              <StyledTableCell align="right">{new Date(row.Date).toLocaleString()}</StyledTableCell>
               <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
               <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
+              <StyledTableCell align="right">{row.ShopKeeper.district}</StyledTableCell>
+              <StyledTableCell align="right">{row.ShopKeeper.upzila}</StyledTableCell>
               <StyledTableCell align="right">{row.Girl.strName}</StyledTableCell>
+              <StyledTableCell align="right">{row.Girl.strPhone}</StyledTableCell>
               <StyledTableCell align="right">{row.grossamt}</StyledTableCell>
             </StyledTableRow>
           ))}
@@ -71,6 +77,9 @@ function TableView({ resultList, totalAmount }) {
               <StyledTableCell align="right"></StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
               <StyledTableCell align="right"><b>Total: {totalAmount}</b></StyledTableCell>
             </StyledTableRow>
           )}
@@ -80,4 +89,4 @@ function TableView({ resultList, totalAmount }) {
   );
 }
 
-export default TableView;
+export default DispatchTable;
