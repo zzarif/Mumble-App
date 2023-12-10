@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { urls } from "../../constants/urls";
 import styles from "./proditem.module.css";
 import { Modal } from "@mui/material";
-import PreviewProduct from "../product-preview/PreviewProduct";
+import PreviewProduct from "../product-preview/PreviewDispatch";
 
 function ProductItem({
   product
