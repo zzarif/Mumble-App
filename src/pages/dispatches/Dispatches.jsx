@@ -34,8 +34,13 @@ function Dispatches() {
   today = mm + "/" + dd + "/" + yyyy;
   // all states
   const [district, setDistrict] = useState("");
+
+  const [upozillaList,setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
+
+  const [shopnameList,setShopnameList] = useState([]);
   const [shopname, setShopname] = useState("");
+
   const [startDate, setStartDate] = useState(dayjs(today));
   const [endDate, setEndDate] = useState(dayjs(today));
   const [resultList, setResultList] = useState([]);
@@ -48,11 +53,11 @@ function Dispatches() {
   const loadResultList = async () => {
     setLoading(true);
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "invoices/web");
-    url.searchParams.append("district", "");
-    url.searchParams.append("upzila", "");
-    url.searchParams.append("shopname", "");
-    url.searchParams.append("startDate", "");
-    url.searchParams.append("endDate", "");
+    url.searchParams.append("district", district);
+    url.searchParams.append("upzila", upozilla);
+    url.searchParams.append("shopname", shopname);
+    url.searchParams.append("startDate", startDate);
+    url.searchParams.append("endDate", endDate);
     console.log(String(url));
     await fetch(url, {
       method: methods.GET,
@@ -65,6 +70,36 @@ function Dispatches() {
         setLoading(false);
       });
   };
+
+  // handle district select
+  const handleSelectDistrict = async (s_district) => {
+    setDistrict(s_district);
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
+    url.searchParams.append("district",s_district);
+    await fetch(url, {
+      method: methods.GET,
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((obj) => {
+        setUpozillaList(obj);
+      });
+  }
+
+  // handle district select
+  const handleSelectUpozilla = async (s_upozilla) => {
+    setUpozilla(s_upozilla);
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
+    url.searchParams.append("upzila",s_upozilla);
+    await fetch(url, {
+      method: methods.GET,
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((obj) => {
+        setShopnameList(obj);
+      });
+  }
 
   return (
     <>
@@ -80,7 +115,7 @@ function Dispatches() {
                 fullWidth
                 value={district}
                 sx={select_styles}
-                onChange={(e) => setDistrict(e.target.value)}
+                onChange={(e) => handleSelectDistrict(e.target.value)}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="District"
@@ -102,7 +137,7 @@ function Dispatches() {
                 fullWidth
                 value={upozilla}
                 sx={select_styles}
-                onChange={(e) => setUpozilla(e.target.value)}
+                onChange={(e) => handleSelectUpozilla(e.target.value)}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="Upozilla"
@@ -110,8 +145,8 @@ function Dispatches() {
                 <MenuItem value="">
                   <em>Select</em>
                 </MenuItem>
-                {districtList.map((obj) => (
-                  <MenuItem value={obj.district}>{obj.district}</MenuItem>
+                {upozillaList.map((obj) => (
+                  <MenuItem value={obj.upazilla}>{obj.upazilla}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -133,12 +168,9 @@ function Dispatches() {
                 <MenuItem value="">
                   <em>Select</em>
                 </MenuItem>
-                <MenuItem value="Alam Store">
-                  Alam Store
-                </MenuItem>
-                <MenuItem value="Iman Store">
-                  Iman Store
-                </MenuItem>
+                {shopnameList.map((obj) => (
+                  <MenuItem value={obj.shopname}>{obj.shopname}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </div>
@@ -149,12 +181,12 @@ function Dispatches() {
                 <DatePicker
                   label="Start Date"
                   value={startDate}
-                  onChange={(newValue) => setStartDate(newValue)}
+                  onChange={(newValue) => setStartDate(new Date(newValue).toUTCString())}
                 />
                 <DatePicker
                   label="End Date"
                   value={endDate}
-                  onChange={(newValue) => setEndDate(newValue)}
+                  onChange={(newValue) => setEndDate(new Date(newValue).toUTCString())}
                 />
               </div>
             </DemoContainer>
