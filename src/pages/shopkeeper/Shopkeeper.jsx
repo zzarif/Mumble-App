@@ -56,7 +56,6 @@ function Shopkeeper() {
       .then((res) => res.json())
       .then((obj) => {
         setResultList(obj);
-        // setTotalAmount(obj.total[0].totalAmount);
         setLoading(false);
       });
   };

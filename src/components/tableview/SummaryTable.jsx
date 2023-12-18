@@ -36,10 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-function ShopkeeperTable({ resultList, setResultList }) {
-
-  // array of action status
-  const [statusList,setStatusList] = useState([]);
+function SummaryTable({ resultList, setResultList }) {
 
 // handle status select
   const handleSelectStatus = async (row_code,s_status) => {
@@ -80,7 +77,7 @@ function ShopkeeperTable({ resultList, setResultList }) {
               <b>Email</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Action</b>
+              <b>Total</b>
             </StyledTableCell>
           </StyledTableRow>
         </TableHead>
@@ -96,25 +93,27 @@ function ShopkeeperTable({ resultList, setResultList }) {
               <StyledTableCell align="right">{row.shopname}</StyledTableCell>
               <StyledTableCell align="right">{row.phone}</StyledTableCell>
               <StyledTableCell align="right">{row.email}</StyledTableCell>
-              <StyledTableCell align="right">
-                <Select
-                  value={row.status}
-                  sx={select_styles}
-                  onChange={(e) => handleSelectStatus(row.strShopKeeperCode,e.target.value)}
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                >
-                  <MenuItem value="approved">Approved</MenuItem>
-                  <MenuItem value="pending">Pending</MenuItem>
-                  <MenuItem value="rejected">Rejected</MenuItem>
-                </Select>
-              </StyledTableCell>
+              <StyledTableCell align="right">{row.name}</StyledTableCell>
             </StyledTableRow>
           ))}
+          {/* {totalAmount && (
+            <StyledTableRow
+              key={-1}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <StyledTableCell component="th" scope="row"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right">
+                <b>Total: {totalAmount}</b>
+              </StyledTableCell>
+            </StyledTableRow>
+          )} */}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
 
-export default ShopkeeperTable;
+export default SummaryTable;
