@@ -35,10 +35,10 @@ function Dispatches() {
   // all states
   const [district, setDistrict] = useState("");
 
-  const [upozillaList,setUpozillaList] = useState([]);
+  const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
 
-  const [shopnameList,setShopnameList] = useState([]);
+  const [shopnameList, setShopnameList] = useState([]);
   const [shopname, setShopname] = useState("");
 
   const [startDate, setStartDate] = useState(dayjs(today));
@@ -75,7 +75,7 @@ function Dispatches() {
   const handleSelectDistrict = async (s_district) => {
     setDistrict(s_district);
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
-    url.searchParams.append("district",s_district);
+    url.searchParams.append("district", s_district);
     await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
@@ -84,13 +84,13 @@ function Dispatches() {
       .then((obj) => {
         setUpozillaList(obj);
       });
-  }
+  };
 
-  // handle district select
+  // handle upozilla select
   const handleSelectUpozilla = async (s_upozilla) => {
     setUpozilla(s_upozilla);
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
-    url.searchParams.append("upzila",s_upozilla);
+    url.searchParams.append("upzila", s_upozilla);
     await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
@@ -99,7 +99,7 @@ function Dispatches() {
       .then((obj) => {
         setShopnameList(obj);
       });
-  }
+  };
 
   return (
     <>
@@ -152,7 +152,7 @@ function Dispatches() {
             </FormControl>
           </div>
           <div className={styles.rowContainer1}>
-          <FormControl sx={{ m: 1, minWidth: "100%" }}>
+            <FormControl sx={{ m: 1, minWidth: "100%" }}>
               <InputLabel id="demo-simple-select-helper-label">
                 Shopname
               </InputLabel>
@@ -181,12 +181,16 @@ function Dispatches() {
                 <DatePicker
                   label="Start Date"
                   value={startDate}
-                  onChange={(newValue) => setStartDate(new Date(newValue).toUTCString())}
+                  onChange={(newValue) =>
+                    setStartDate(new Date(newValue).toUTCString())
+                  }
                 />
                 <DatePicker
                   label="End Date"
                   value={endDate}
-                  onChange={(newValue) => setEndDate(new Date(newValue).toUTCString())}
+                  onChange={(newValue) =>
+                    setEndDate(new Date(newValue).toUTCString())
+                  }
                 />
               </div>
             </DemoContainer>

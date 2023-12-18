@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { urls } from "../../constants/urls";
 import styles from "./proditem.module.css";
 import { Modal } from "@mui/material";
-import PreviewProduct from "../product-preview/PreviewDispatch";
+import PreviewProduct from "../dispatch-preview/PreviewDispatch";
 
-function ProductItem({
-  product
-}) {
+function ProductItem({ product }) {
   const navigate = useNavigate();
 
   // preview handles
@@ -17,7 +15,7 @@ function ProductItem({
 
   const handleUpdate = () => {
     navigate("/" + urls.UPDATE_PRODUCT, {
-      state: {product},
+      state: { product },
     });
   };
 
@@ -33,9 +31,7 @@ function ProductItem({
         </button>
       </div>
       <Modal open={open} onClose={handleClose}>
-        <PreviewProduct
-          product={product}
-        />
+        <PreviewProduct product={product} />
       </Modal>
     </>
   );
