@@ -10,6 +10,16 @@
         "imageLink": "/navbar/add-product.png"
     },
     {
+        "title": "Items",
+        "path": "#/items",
+        "imageLink": "/navbar/bag.png"
+    },
+    {
+        "title": "Summary",
+        "path": "#/summary",
+        "imageLink": "/navbar/write.png"
+    },
+    {
         "title": "Settings",
         "path": "#/settings",
         "imageLink": "/navbar/settings.png"

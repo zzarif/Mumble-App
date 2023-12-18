@@ -184,7 +184,7 @@ function Shopkeeper() {
 
       <div style={{ height: "2rem" }}></div>
 
-      <ShopkeeperTable resultList={resultList} totalAmount={totalAmount} />
+      <ShopkeeperTable resultList={resultList} setResultList={setResultList} totalAmount={totalAmount} />
 
       <div style={{ height: "6rem" }}></div>
     </>

@@ -8,11 +8,6 @@ import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from
 import { DeleteOutline, Inventory2Rounded } from "@mui/icons-material";
 
 export default function PreviewDispatch({ open, setOpen, data }) {
-  
-  const itemList = [
-    {a:"Amazing item",b:"$17.69"}
-  ]
-
   return (
     <Fragment>
       <Modal
@@ -44,18 +39,14 @@ export default function PreviewDispatch({ open, setOpen, data }) {
             Dispatch Details
           </Typography>
           <List>
-            {itemList.map((item, idx) => (
+            {data.EntriesInvoices&&data.EntriesInvoices.map((item, idx) => (
               <ListItem
                 key={idx}
                 disableGutters
                 secondaryAction={
-                  <IconButton edge="end" aria-label="delete">
-                    <DeleteOutline
-                      onClick={() =>
-                        handleRemoveCondiment(condiment.nCondimentId)
-                      }
-                    />
-                  </IconButton>
+                  <Typography id="modal-desc" textColor="text.tertiary">
+                    {item.totalAmt}
+                  </Typography>
                 }
               >
                 <ListItemAvatar>
@@ -64,8 +55,8 @@ export default function PreviewDispatch({ open, setOpen, data }) {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={item.a}
-                  secondary={item.b}
+                  primary={item.nItemCode}
+                  secondary={item.unitAmt}
                 />
               </ListItem>
             ))}

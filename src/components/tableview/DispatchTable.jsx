@@ -35,28 +35,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function DispatchTable({ resultList, totalAmount }) {
   // preview controller
   const [open,setOpen] = useState(false);
-
-  // make json list
-  const makeJsonObj = (first,second) => {
-    return {first:first,second:second}
-  }
+  
   // row data
   const [data,setData] = useState([]);
 
   // handle row click
   const handleRowClick = (rowData) => {
     setOpen(true);
-    setData([
-      makeJsonObj("Receipt Number",rowData.ReceiptNumber),
-      makeJsonObj("Date",new Date(rowData.Date).toLocaleString()),
-      makeJsonObj("Shopname",rowData.ShopKeeper.shopname),
-      makeJsonObj("Shopkeeper",rowData.ShopKeeper.name),
-      makeJsonObj("District",rowData.ShopKeeper.district),
-      makeJsonObj("Upozilla",rowData.ShopKeeper.upzila),
-      makeJsonObj("Beneficiary Name",rowData.Girl.strName),
-      makeJsonObj("Beneficiary Phone Number",rowData.Girl.strPhone),
-      makeJsonObj("Total Amount",rowData.grossamt),
-    ]);
+    setData(rowData);
   }
 
   return (

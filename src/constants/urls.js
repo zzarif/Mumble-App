@@ -3,5 +3,7 @@ export const urls = {
     LANDING_PAGE: "/",
     DISTRICT: "dispatches",
     SHOPNAME: "shopkeeper",
+    ITEMS: "items",
+    SUMMARY: "summary",
     SETTINGS: "settings",
 }

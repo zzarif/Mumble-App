@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -36,20 +36,30 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-function ShopkeeperTable({ resultList, totalAmount }) {
+function ShopkeeperTable({ resultList, setResultList, totalAmount }) {
+
+  // array of action status
+  const [statusList,setStatusList] = useState([]);
 
 // handle status select
-  const handleSelectStatus = async (s_status) => {
-    // const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
-    // url.searchParams.append("upzila", s_status);
-    // await fetch(url, {
-    //   method: methods.PUT,
-    //   headers: { "Content-Type": "application/json" },
-    // })
-    //   .then((res) => res.json())
-    //   .then((obj) => {
-    //     setShopnameList(obj);
-    //   });
+  const handleSelectStatus = async (row_code,s_status) => {
+    const updatedResultList = resultList.map(result =>
+      result.strShopKeeperCode === row_code ? { ...result, status: s_status } : result
+    );
+    setResultList(updatedResultList);
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeeper/status");
+    url.searchParams.append("strShopKeeperCode", row_code);
+    await fetch(url, {
+      method: methods.PUT,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        status: s_status
+      })
+    })
+      .then((res) => res.json())
+      .then((obj) => {
+      })
+      .catch((err) => alert(err));
   };
 
   return (
@@ -88,9 +98,9 @@ function ShopkeeperTable({ resultList, totalAmount }) {
               <StyledTableCell align="right">{row.email}</StyledTableCell>
               <StyledTableCell align="right">
                 <Select
-                  value={"approved"}
+                  value={row.status}
                   sx={select_styles}
-                  onChange={(e) => handleSelectStatus(e.target.value)}
+                  onChange={(e) => handleSelectStatus(row.strShopKeeperCode,e.target.value)}
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
                 >
