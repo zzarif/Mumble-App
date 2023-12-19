@@ -1,13 +1,23 @@
 [
     {
-        "title": "Dispatches",
-        "path": "#/dispatches",
-        "imageLink": "/navbar/products.png"
+        "title": "Registration",
+        "path": "#/registration",
+        "imageLink": "/navbar/woman.png"
     },
     {
         "title": "Shopkeeper",
         "path": "#/shopkeeper",
         "imageLink": "/navbar/add-product.png"
+    },
+    {
+        "title": "Reports",
+        "path": "#/reports",
+        "imageLink": "/navbar/clipboard.png"
+    },
+    {
+        "title": "Dispatches",
+        "path": "#/dispatches",
+        "imageLink": "/navbar/products.png"
     },
     {
         "title": "Items",
