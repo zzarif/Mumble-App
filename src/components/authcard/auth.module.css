@@ -1,7 +1,7 @@
 .card {
   width: 30rem;
-  height: 24rem;
-  min-height: 24rem;
+  height: fit-content;
+  min-height: fit-content;
   background-color: white;
   position: absolute;
   left: 0;
@@ -9,16 +9,12 @@
   top: 0;
   bottom: 0;
   margin: auto;
-  max-width: 90%;
-  max-height: 90%;
-  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   border-radius: 0.5rem;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
-  padding: 2.5rem;
 }
 
 .headContainer {
@@ -26,7 +22,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
 .title {

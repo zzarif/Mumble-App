@@ -1,4 +1,6 @@
 export const btn_styles2 = {
+  mb: 2,
+  mt: 3,
   width: "100%",
   backgroundColor: "#ff007a",
   borderRadius: "0.8rem",
