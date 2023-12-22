@@ -18,7 +18,7 @@ import {
   UpdateOutlined,
   UpdateRounded,
 } from "@mui/icons-material";
-import UpdateItem from "../items-crud/UpdateItem";
+import UpdateGirl from "../girl-crud/UpdateGirl";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,13 +43,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function ItemsTable({ resultList, loadItemList }) {
+function GirlsTable({ resultList, loadGirlList }) {
   const [data, setData] = useState(null);
   const [open, setOpen] = useState(false);
 
   // handle delete item
   const handleDelete = async (id) => {
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "item");
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "girl");
     url.searchParams.append("id", id);
     await fetch(url, {
       method: methods.DELETE,
@@ -57,7 +57,7 @@ function ItemsTable({ resultList, loadItemList }) {
     })
       .then((res) => {
         if (res.ok) {
-          loadItemList();
+          loadGirlList();
         } else alert("Something went wrong");
       })
       .catch((err) => alert(err));
@@ -70,13 +70,25 @@ function ItemsTable({ resultList, loadItemList }) {
           <TableHead>
             <StyledTableRow>
               <StyledTableCell>
+                <b>Code</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
                 <b>Name</b>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <b>Max</b>
+                <b>Email</b>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <b>Price</b>
+                <b>Phone</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <b>Date of Birth</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <b>District</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <b>Upozilla</b>
               </StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
@@ -85,14 +97,18 @@ function ItemsTable({ resultList, loadItemList }) {
           <TableBody>
             {resultList.map((row) => (
               <StyledTableRow
-                key={row.ReceiptNumber}
+                key={row.strGirlCode}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {row.strGirlCode}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.max}</StyledTableCell>
-                <StyledTableCell align="right">{row.price}</StyledTableCell>
+                <StyledTableCell align="right">{row.strName}</StyledTableCell>
+                <StyledTableCell align="right">{row.strEmail}</StyledTableCell>
+                <StyledTableCell align="right">{row.strPhone}</StyledTableCell>
+                <StyledTableCell align="right">{row.strDOB}</StyledTableCell>
+                <StyledTableCell align="right">{row.strDistrict}</StyledTableCell>
+                <StyledTableCell align="right">{row.strSubLocation}</StyledTableCell>
                 <StyledTableCell align="right">
                   <IconButton edge="end" aria-label="update">
                     <EditOutlined
@@ -113,9 +129,9 @@ function ItemsTable({ resultList, loadItemList }) {
           </TableBody>
         </Table>
       </TableContainer>
-      {data && <UpdateItem open={open} setOpen={setOpen} data={data} loadItemList={loadItemList}/>}
+      {data && <UpdateGirl open={open} setOpen={setOpen} data={data} loadGirlList={loadGirlList}/>}
     </>
   );
 }
 
-export default ItemsTable;
+export default GirlsTable;

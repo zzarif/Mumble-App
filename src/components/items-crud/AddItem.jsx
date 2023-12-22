@@ -24,6 +24,7 @@ export default function AddItem({ open, setOpen, loadItemList }) {
       method: methods.POST,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        id: Date.now(),
         name: name,
         max: max,
         price: price,

@@ -1,0 +1,24 @@
+.pageTitle {
+  font-family: "Poppins";
+  font-weight: bold;
+  font-size: 2rem;
+  color: #23232e;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.bigContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.colContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 1.5rem;
+}
