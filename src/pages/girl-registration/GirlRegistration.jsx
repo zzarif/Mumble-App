@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./girls.module.css";
+import GirlForm from "../../components/girl-form/GirlForm";
 
 const GirlRegistration = () => {
-    return (
-        <>
-            <div className={styles.pageTitle}>Girl Registration</div>
-        </>
-    )
-}
+  return (
+    <div style={{height:"100vh"}}>
+      <GirlForm />
+    </div>
+  );
+};
 
 export default GirlRegistration;

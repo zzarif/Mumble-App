@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./auth.module.css";
+import styles from "./gforms.module.css";
 import districtList from "../../constants/districtList.json";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -16,17 +16,29 @@ import {
   Select,
   Snackbar,
 } from "@mui/material";
+import dayjs from "dayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { methods } from "../../constants/methods";
 import { LoadingButton } from "@mui/lab";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignIn } from "@fortawesome/free-solid-svg-icons";
 import { btn_styles2 } from "../../constants/btn_styles2";
+import { AppRegistration } from "@mui/icons-material";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-export default function SignUp({ setAuthMethod }) {
+export default function GirlForm() {
+  // today date mm/dd/yyyy
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
+  today = mm + "/" + dd + "/" + yyyy;
+  const [DOB, setDOB] = useState(dayjs(today));
+
   const [district, setDistrict] = useState("");
 
   const [upozillaList, setUpozillaList] = useState([]);
@@ -102,9 +114,9 @@ export default function SignUp({ setAuthMethod }) {
               }}
             >
               <div className={styles.headContainer}>
-                <label className={styles.title}>Sign Up</label>
+                <label className={styles.title}>Girl Registration</label>
                 <label className={styles.subtitle}>
-                  Create new co-ordinator account
+                  Register new girl account
                 </label>
               </div>
               <Box
@@ -138,12 +150,27 @@ export default function SignUp({ setAuthMethod }) {
                     <TextField
                       required
                       fullWidth
-                      name="pin"
-                      label="Pin"
-                      type="password"
-                      id="pin"
+                      name="email"
+                      label="Email"
+                      id="email"
                     />
                   </Grid>
+
+                  <Grid item xs={12}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DemoContainer components={["DatePicker", "DatePicker"]}>
+                        <DatePicker
+                          label="Date of Birth"
+                          value={DOB}
+                          onChange={(newValue) =>
+                            setDOB(new Date(newValue).toUTCString())
+                          }
+                          slotProps={{ textField: { fullWidth: true } }}
+                        />
+                      </DemoContainer>
+                    </LocalizationProvider>
+                  </Grid>
+
                   <Grid item xs={12} sm={6}>
                     <FormControl sx={{ minWidth: "100%" }}>
                       <InputLabel id="demo-simple-select-helper-label">
@@ -197,23 +224,12 @@ export default function SignUp({ setAuthMethod }) {
                   type="submit"
                   loading={loading}
                   loadingPosition="start"
-                  startIcon={<FontAwesomeIcon icon={faSignIn} />}
+                  startIcon={<AppRegistration />}
                   variant="contained"
                   sx={btn_styles2}
                 >
-                  <span>Sign Up</span>
+                  <span>Register</span>
                 </LoadingButton>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => setAuthMethod(true)}
-                      variant="body2"
-                    >
-                      Already have an account? Sign in
-                    </Link>
-                  </Grid>
-                </Grid>
               </Box>
             </Box>
           </Container>
@@ -221,7 +237,7 @@ export default function SignUp({ setAuthMethod }) {
       </div>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          You may login after admin verification
+          Girl registration successful
         </Alert>
       </Snackbar>
     </>
