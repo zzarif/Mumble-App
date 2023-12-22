@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./shopkeeper.module.css";
-import ProductItem from "../../components/product-item/ProductItem";
 import {
   Button,
   Chip,
