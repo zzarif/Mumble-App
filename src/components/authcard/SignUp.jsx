@@ -1,33 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import styles from "./auth.module.css";
 import districtList from "./districtList.json";
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Alert, FormControl, InputLabel, MenuItem, Select, Snackbar } from '@mui/material';
-import { methods } from '../../constants/methods';
-import { LoadingButton } from '@mui/lab';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignIn } from '@fortawesome/free-solid-svg-icons';
-import { btn_styles2 } from '../../constants/btn_styles2';
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  Alert,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Snackbar,
+} from "@mui/material";
+import { methods } from "../../constants/methods";
+import { LoadingButton } from "@mui/lab";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignIn } from "@fortawesome/free-solid-svg-icons";
+import { btn_styles2 } from "../../constants/btn_styles2";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignUp({ setAuthMethod }) {
-
-    
   const [district, setDistrict] = useState("");
 
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
 
-    // handle district select
+  // handle district select
   const handleSelectDistrict = async (s_district) => {
     setDistrict(s_district);
     setUpozilla("");
@@ -43,7 +48,7 @@ export default function SignUp({ setAuthMethod }) {
       });
   };
 
-  const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -53,9 +58,9 @@ export default function SignUp({ setAuthMethod }) {
     event.preventDefault();
     setLoading(true);
     setTimeout(() => {
-        setLoading(false);
-        setOpen(true);
-    },2000);
+      setLoading(false);
+      setOpen(true);
+    }, 2000);
     // const data = new FormData(event.currentTarget);
     // const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
     // await fetch(url, {
@@ -81,126 +86,144 @@ export default function SignUp({ setAuthMethod }) {
 
   return (
     <>
-    <div className={styles.card} data-aos="fade-up">
+      <div className={styles.card} data-aos="fade-up">
         <ThemeProvider theme={defaultTheme}>
-        <Container sx={{borderRadius:"0.5rem",backgroundColor:"white"}} component="main" maxWidth="xs">
+          <Container
+            sx={{ borderRadius: "0.5rem", backgroundColor: "white" }}
+            component="main"
+            maxWidth="xs"
+          >
             <CssBaseline />
             <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
-            <div className={styles.headContainer}>
-            <label className={styles.title}>Sign Up</label>
-            <label className={styles.subtitle}>Create new co-ordinator account</label>
-        </div>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <div className={styles.headContainer}>
+                <label className={styles.title}>Sign Up</label>
+                <label className={styles.subtitle}>
+                  Create new co-ordinator account
+                </label>
+              </div>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
+              >
                 <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                        required
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="name"
+                      label="Name"
+                      name="name"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="phone"
+                      label="Phone Number"
+                      name="phone"
+                      type="number"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      name="pin"
+                      label="Pin"
+                      type="password"
+                      id="pin"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <FormControl sx={{ minWidth: "100%" }}>
+                      <InputLabel id="demo-simple-select-helper-label">
+                        District
+                      </InputLabel>
+                      <Select
                         fullWidth
-                        id="name"
-                        label="Name"
-                        name="name"
-                        autoFocus
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                        required
-                        fullWidth
-                        id="phone"
-                        label="Phone Number"
-                        name="phone"
-                        type="number"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                        required
-                        fullWidth
-                        name="pin"
-                        label="Pin"
-                        type="password"
-                        id="pin"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <FormControl sx={{ minWidth: "100%"}}>
-                        <InputLabel id="demo-simple-select-helper-label">
-                            District
-                        </InputLabel>
-                        <Select
-                            fullWidth
-                            value={district}
-                            onChange={(e) => handleSelectDistrict(e.target.value)}
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            label="District"
-                        >
-                            <MenuItem value="">
-                            <em>Select</em>
-                            </MenuItem>
-                            {districtList.map((obj) => (
-                            <MenuItem value={obj.district}>{obj.district}</MenuItem>
-                            ))}
-                        </Select>
+                        value={district}
+                        onChange={(e) => handleSelectDistrict(e.target.value)}
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        label="District"
+                      >
+                        <MenuItem value="">
+                          <em>Select</em>
+                        </MenuItem>
+                        {districtList.map((obj) => (
+                          <MenuItem value={obj.district}>
+                            {obj.district}
+                          </MenuItem>
+                        ))}
+                      </Select>
                     </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <FormControl sx={{ minWidth: "100%"}}>
-                        <InputLabel id="demo-simple-select-helper-label">
-                            Upozilla
-                        </InputLabel>
-                        <Select
-                            fullWidth
-                            value={upozilla}
-                            onChange={(e) => setUpozilla(e.target.value)}
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            label="Upozilla"
-                        >
-                            <MenuItem value="">
-                            <em>Select</em>
-                            </MenuItem>
-                            {upozillaList.map((obj) => (
-                            <MenuItem value={obj.upazilla}>{obj.upazilla}</MenuItem>
-                            ))}
-                        </Select>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <FormControl sx={{ minWidth: "100%" }}>
+                      <InputLabel id="demo-simple-select-helper-label">
+                        Upozilla
+                      </InputLabel>
+                      <Select
+                        fullWidth
+                        value={upozilla}
+                        onChange={(e) => setUpozilla(e.target.value)}
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        label="Upozilla"
+                      >
+                        <MenuItem value="">
+                          <em>Select</em>
+                        </MenuItem>
+                        {upozillaList.map((obj) => (
+                          <MenuItem value={obj.upazilla}>
+                            {obj.upazilla}
+                          </MenuItem>
+                        ))}
+                      </Select>
                     </FormControl>
-                    </Grid>
+                  </Grid>
                 </Grid>
                 <LoadingButton
-                    type="submit"
-                    loading={loading}
-                    loadingPosition="start"
-                    startIcon={<FontAwesomeIcon icon={faSignIn} />}
-                    variant="contained"
-                    sx={btn_styles2}
+                  type="submit"
+                  loading={loading}
+                  loadingPosition="start"
+                  startIcon={<FontAwesomeIcon icon={faSignIn} />}
+                  variant="contained"
+                  sx={btn_styles2}
                 >
-                    <span>Sign Up</span>
+                  <span>Sign Up</span>
                 </LoadingButton>
                 <Grid container justifyContent="flex-end">
-                    <Grid item>
-                        <Link sx={{cursor:"pointer"}} onClick={() => setAuthMethod(true)} variant="body2">
-                        Already have an account? Sign in
-                        </Link>
-                    </Grid>
+                  <Grid item>
+                    <Link
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => setAuthMethod(true)}
+                      variant="body2"
+                    >
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
                 </Grid>
+              </Box>
             </Box>
-            </Box>
-        </Container>
+          </Container>
         </ThemeProvider>
-    </div>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            You may login after admin verification
-          </Alert>
-        </Snackbar>
+      </div>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          You may login after admin verification
+        </Alert>
+      </Snackbar>
     </>
-    
   );
 }

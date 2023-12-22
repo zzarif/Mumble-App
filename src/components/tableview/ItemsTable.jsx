@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,10 +7,18 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { MenuItem, Select } from "@mui/material";
+import { IconButton, MenuItem, Select } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { select_styles } from "../../constants/select_styles";
-import { UpdateOutlined } from "@mui/icons-material";
+import {
+  DeleteOutline,
+  Edit,
+  EditOff,
+  EditOutlined,
+  UpdateOutlined,
+  UpdateRounded,
+} from "@mui/icons-material";
+import UpdateItem from "../items-crud/UpdateItem";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,98 +43,78 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
-
-function ItemsTable({ resultList }) {
-  // handle status select
-  const handleUpdate = async (rowData) => {
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "item");
-    url.searchParams.append("id", rowData.id);
-    await fetch(url, {
-      method: methods.PUT,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: rowData.name,
-        max: rowData.max,
-        price: rowData.price
-      })
-    })
-      .then((res) => res.json())
-      .then((obj) => {
-
-        window.location.reload();
-      })
-      .catch((err) => alert(err));
-  };
-
-  const [open0,setOpen0] = useState(false);
-  const [open1,setOpen1] = useState(false);
+function ItemsTable({ resultList, loadItemList }) {
+  const [data, setData] = useState(null);
+  const [open, setOpen] = useState(false);
 
   // handle delete item
   const handleDelete = async (id) => {
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "item");
-    url.searchParams.append("id",id);
+    url.searchParams.append("id", id);
     await fetch(url, {
       method: methods.DELETE,
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
-        if(!res.ok) {
-          alert("Something went wrong");
-        } else {
-          //
-          return res.json();
-        }
+        if (res.ok) {
+          loadItemList();
+        } else alert("Something went wrong");
       })
       .catch((err) => alert(err));
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <StyledTableRow>
-            <StyledTableCell>
-              <b>Name</b>
-            </StyledTableCell>
-            <StyledTableCell align="right">
-              <b>Max</b>
-            </StyledTableCell>
-            <StyledTableCell align="right">
-              <b>Price</b>
-            </StyledTableCell>
-          </StyledTableRow>
-        </TableHead>
-        <TableBody>
-          {resultList.map((row) => (
-            <StyledTableRow
-              key={row.ReceiptNumber}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.max}</StyledTableCell>
-              <StyledTableCell align="right">{row.price}</StyledTableCell>
-              <StyledTableCell align="right">
-                <IconButton edge="end" aria-label="update">
-                  <UpdateOutlined
-                    onClick={() => setOpen1(true)}
-                  />
-                </IconButton>
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <StyledTableRow>
+              <StyledTableCell>
+                <b>Name</b>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteOutline
-                    onClick={() => handleDelete(row.id)}
-                  />
-                </IconButton>
+                <b>Max</b>
               </StyledTableCell>
+              <StyledTableCell align="right">
+                <b>Price</b>
+              </StyledTableCell>
+              <StyledTableCell align="center"></StyledTableCell>
+              <StyledTableCell align="center"></StyledTableCell>
             </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {resultList.map((row) => (
+              <StyledTableRow
+                key={row.ReceiptNumber}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <StyledTableCell component="th" scope="row">
+                  {row.name}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.max}</StyledTableCell>
+                <StyledTableCell align="right">{row.price}</StyledTableCell>
+                <StyledTableCell align="right">
+                  <IconButton edge="end" aria-label="update">
+                    <EditOutlined
+                      onClick={() => {
+                        setData(row);
+                        setOpen(true);
+                      }}
+                    />
+                  </IconButton>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <IconButton edge="end" aria-label="delete">
+                    <DeleteOutline onClick={() => handleDelete(row.id)} />
+                  </IconButton>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {data && <UpdateItem open={open} setOpen={setOpen} data={data} />}
+    </>
   );
 }
 
