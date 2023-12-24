@@ -23,6 +23,9 @@ const defaultTheme = createTheme();
 export default function Login({ setAuthMethod }) {
   const navigate = useNavigate();
 
+  const [phone, setPhone] = useState("");
+  const [pin, setPin] = useState("");
+
   const [open,setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -33,27 +36,31 @@ export default function Login({ setAuthMethod }) {
     event.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      localStorage.setItem("mumble","mumble");
-      navigate(urls.GIRL_REGISTRATION);
-      setLoading(false);
-    },2000);
-    // setLoading(true);
-    // const data = new FormData(event.currentTarget);
+        localStorage.setItem("mumble","mumble");
+        localStorage.setItem("mLevel",1);
+        navigate(urls.GIRL_REGISTRATION);
+    }, 2000);
     // const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
     // await fetch(url, {
     //   method: methods.POST,
     //   headers: { "Content-Type": "application/json" },
     //   body: JSON.stringify({
-    //     phone: data.get("phone"),
-    //     pin: data.get("pin")
+    //     phone: phone,
+    //     pin: pin
     //   })
     // }).then((res) => {
-    //   if(!res.ok) {
-    //     setOpen(true);
-    //   }
-    //   else return res.json();
-    // }).then((obj) => {
-    //   }).finally(() => setLoading(false));
+    //   if(res.ok) return res.json()
+    //   else alert("Invalid Credential");
+    // })
+    // .then((obj) => {
+    //     if(obj.Active) {
+    //         localStorage.setItem("mumble","mumble");
+    //         localStorage.setItem("mLevel",obj.level);
+    //         navigate(urls.GIRL_REGISTRATION);
+    //     } else setOpen(true);
+    // })
+    // .catch((err) => alert(err.message))
+    // .finally(() => setLoading(false));
   };
 
   return (
@@ -83,6 +90,8 @@ export default function Login({ setAuthMethod }) {
                         label="Phone Number"
                         name="phone"
                         type="number"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         autoFocus
                         />
                     </Grid>
@@ -94,6 +103,8 @@ export default function Login({ setAuthMethod }) {
                         label="Pin"
                         type="pin"
                         id="pin"
+                        value={pin}
+                        onChange={(e) => setPin(e.target.value)}
                         />
                     </Grid>
                 </Grid>

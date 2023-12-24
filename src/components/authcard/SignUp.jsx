@@ -27,26 +27,10 @@ import { btn_styles2 } from "../../constants/btn_styles2";
 const defaultTheme = createTheme();
 
 export default function SignUp({ setAuthMethod }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [pin, setPin] = useState("");
   const [district, setDistrict] = useState("");
-
-  const [upozillaList, setUpozillaList] = useState([]);
-  const [upozilla, setUpozilla] = useState("");
-
-  // handle district select
-  const handleSelectDistrict = async (s_district) => {
-    setDistrict(s_district);
-    setUpozilla("");
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
-    url.searchParams.append("district", s_district);
-    await fetch(url, {
-      method: methods.GET,
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((obj) => {
-        setUpozillaList(obj);
-      });
-  };
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -57,31 +41,27 @@ export default function SignUp({ setAuthMethod }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setOpen(true);
-    }, 2000);
-    // const data = new FormData(event.currentTarget);
-    // const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
-    // await fetch(url, {
-    //   method: methods.POST,
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     name: data.get("name"),
-    //     phone: data.get("phone"),
-    //     pin: data.get("pin"),
-    //     district: district,
-    //     upzilla: upozilla
-    //   })
-    // }).then((res) => {
-    //   if(!res.ok) {
-    //     setOpen(true);
-    //   }
-    //   else return res.json();
-    // }).then((obj) => {
-    //     //
-    //   })
-    //   .finally(() => setLoading(false));
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
+    await fetch(url, {
+      method: methods.POST,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: Date.now(),
+        name: name,
+        phone: phone,
+        pin: pin,
+        level: 2,
+        District: district,
+        Active: false
+      })
+    }).then((res) => {
+      if(res.ok) {
+        setOpen(true);
+      }
+      else alert("Something went wrong!");
+    })
+      .catch((err) => alert(err))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -121,6 +101,8 @@ export default function SignUp({ setAuthMethod }) {
                       id="name"
                       label="Name"
                       name="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       autoFocus
                     />
                   </Grid>
@@ -131,6 +113,8 @@ export default function SignUp({ setAuthMethod }) {
                       id="phone"
                       label="Phone Number"
                       name="phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       type="number"
                     />
                   </Grid>
@@ -142,9 +126,11 @@ export default function SignUp({ setAuthMethod }) {
                       label="Pin"
                       type="password"
                       id="pin"
+                      value={pin}
+                      onChange={(e) => setPin(e.target.value)}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12}>
                     <FormControl sx={{ minWidth: "100%" }}>
                       <InputLabel id="demo-simple-select-helper-label">
                         District
@@ -152,7 +138,7 @@ export default function SignUp({ setAuthMethod }) {
                       <Select
                         fullWidth
                         value={district}
-                        onChange={(e) => handleSelectDistrict(e.target.value)}
+                        onChange={(e) => setDistrict(e.target.value)}
                         labelId="demo-simple-select-helper-label"
                         id="demo-simple-select-helper"
                         label="District"
@@ -163,30 +149,6 @@ export default function SignUp({ setAuthMethod }) {
                         {districtList.map((obj) => (
                           <MenuItem value={obj.district}>
                             {obj.district}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <FormControl sx={{ minWidth: "100%" }}>
-                      <InputLabel id="demo-simple-select-helper-label">
-                        Upozilla
-                      </InputLabel>
-                      <Select
-                        fullWidth
-                        value={upozilla}
-                        onChange={(e) => setUpozilla(e.target.value)}
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
-                        label="Upozilla"
-                      >
-                        <MenuItem value="">
-                          <em>Select</em>
-                        </MenuItem>
-                        {upozillaList.map((obj) => (
-                          <MenuItem value={obj.upazilla}>
-                            {obj.upazilla}
                           </MenuItem>
                         ))}
                       </Select>
@@ -221,7 +183,7 @@ export default function SignUp({ setAuthMethod }) {
       </div>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          You may login after admin verification
+          Your application is sent to admin for approval.
         </Alert>
       </Snackbar>
     </>

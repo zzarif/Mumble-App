@@ -12,6 +12,7 @@ function Settings() {
   // logout
   const handleLogout = () => {
     localStorage.removeItem("mumble");
+    localStorage.removeItem("mLevel");
     navigate(urls.LANDING_PAGE);
   };
 
