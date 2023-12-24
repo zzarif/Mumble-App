@@ -35,32 +35,29 @@ export default function Login({ setAuthMethod }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-        localStorage.setItem("mumble","mumble");
-        localStorage.setItem("mLevel",1);
-        navigate(urls.GIRL_REGISTRATION);
-    }, 2000);
-    // const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
-    // await fetch(url, {
-    //   method: methods.POST,
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     phone: phone,
-    //     pin: pin
-    //   })
-    // }).then((res) => {
-    //   if(res.ok) return res.json()
-    //   else alert("Invalid Credential");
-    // })
-    // .then((obj) => {
-    //     if(obj.Active) {
-    //         localStorage.setItem("mumble","mumble");
-    //         localStorage.setItem("mLevel",obj.level);
-    //         navigate(urls.GIRL_REGISTRATION);
-    //     } else setOpen(true);
-    // })
-    // .catch((err) => alert(err.message))
-    // .finally(() => setLoading(false));
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
+    await fetch(url, {
+      method: methods.POST,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        phone: phone,
+        pin: pin
+      })
+    }).then((res) => {
+      if(res.ok) return res.json();
+      else alert("Invalid Credentials");
+    })
+    .then((obj) => {
+        if(obj) {
+            if(obj.Active) {
+                localStorage.setItem("mumble","mumble");
+                localStorage.setItem("mLevel",obj.level);
+                navigate(urls.GIRL_REGISTRATION);
+            } else setOpen(true);
+        }
+    })
+    .catch((err) => alert(err))
+    .finally(() => setLoading(false));
   };
 
   return (
@@ -101,7 +98,7 @@ export default function Login({ setAuthMethod }) {
                         fullWidth
                         name="pin"
                         label="Pin"
-                        type="pin"
+                        type="password"
                         id="pin"
                         value={pin}
                         onChange={(e) => setPin(e.target.value)}
