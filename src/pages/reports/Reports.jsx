@@ -12,9 +12,14 @@ import {
 } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { Search } from "@mui/icons-material";
-import districtList from "./districtList.json";
+import districtList from "../../constants/districtList.json";
 import { LoadingButton } from "@mui/lab";
 import { btn_styles2 } from "../../constants/btn_styles2";
+import dayjs from "dayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { select_styles } from "../../constants/select_styles";
 import ShopkeeperTable from "../../components/tableview/ShopkeeperTable";
 
@@ -31,9 +36,8 @@ function Reports() {
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
 
-  const [shopnameList, setShopnameList] = useState([]);
-  const [shopname, setShopname] = useState("");
-
+  const [startDate, setStartDate] = useState(dayjs(today));
+  const [endDate, setEndDate] = useState(dayjs(today));
   const [resultList, setResultList] = useState([]);
   const [totalAmount, setTotalAmount] = useState("");
 
@@ -139,29 +143,27 @@ function Reports() {
               </Select>
             </FormControl>
           </div>
-          <div className={styles.rowContainer1}>
-            <FormControl sx={{ m: 1, minWidth: "100%" }}>
-              <InputLabel id="demo-simple-select-helper-label">
-                Shopname
-              </InputLabel>
-              <Select
-                fullWidth
-                value={shopname}
-                sx={select_styles}
-                onChange={(e) => setShopname(e.target.value)}
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                label="Shopname"
-              >
-                <MenuItem value="">
-                  <em>Select</em>
-                </MenuItem>
-                {shopnameList.map((obj) => (
-                  <MenuItem value={obj.shopname}>{obj.shopname}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker", "DatePicker"]}>
+              <div className={styles.rowContainer2}>
+                <DatePicker
+                  label="Start Date"
+                  value={startDate}
+                  onChange={(newValue) =>
+                    setStartDate(new Date(newValue).toUTCString())
+                  }
+                />
+                <DatePicker
+                  label="End Date"
+                  value={endDate}
+                  onChange={(newValue) =>
+                    setEndDate(new Date(newValue).toUTCString())
+                  }
+                />
+              </div>
+            </DemoContainer>
+          </LocalizationProvider>
 
           <div style={{ height: "1rem" }}></div>
 

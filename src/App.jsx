@@ -12,9 +12,9 @@ import "@fontsource/inter";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import Items from "./pages/items/Items";
-import Summary from "./pages/summary/Summary";
 import GirlRegistration from "./pages/girl-registration/GirlRegistration";
 import Reports from "./pages/reports/Reports";
+import UserList from "./pages/user-list/UserList";
 
 function App() {
   useEffect(() => {
@@ -31,7 +31,7 @@ function App() {
             <Route path={urls.REPORTS} element={<Navbar><Reports/></Navbar>} />
             <Route path={urls.DISTRICT} element={<Navbar><Dispatches/></Navbar>} />
             <Route path={urls.ITEMS} element={<Navbar><Items/></Navbar>} />
-            <Route path={urls.SUMMARY} element={<Navbar><Summary/></Navbar>} />
+            <Route path={urls.USER_LIST} element={<Navbar><UserList/></Navbar>} />
             <Route path={urls.SETTINGS} element={<Navbar><Settings/></Navbar>} />
           </Route>
         </Routes>

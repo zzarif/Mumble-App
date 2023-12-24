@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { Search } from "@mui/icons-material";
-import districtList from "./districtList.json";
+import districtList from "../../constants/districtList.json";
 import { LoadingButton } from "@mui/lab";
 import { btn_styles2 } from "../../constants/btn_styles2";
 import dayjs from "dayjs";

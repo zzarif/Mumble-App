@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { Search } from "@mui/icons-material";
-import districtList from "./districtList.json";
+import districtList from "../../constants/districtList.json";
 import { LoadingButton } from "@mui/lab";
 import { btn_styles2 } from "../../constants/btn_styles2";
 import { select_styles } from "../../constants/select_styles";
@@ -31,8 +31,7 @@ function Shopkeeper() {
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
 
-  const [shopnameList, setShopnameList] = useState([]);
-  const [shopname, setShopname] = useState("");
+  const [status, setStatus] = useState("");
 
   const [resultList, setResultList] = useState([]);
   const [totalAmount, setTotalAmount] = useState("");
@@ -46,7 +45,7 @@ function Shopkeeper() {
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
     url.searchParams.append("district", district);
     url.searchParams.append("upzila", upozilla);
-    url.searchParams.append("shopname", shopname);
+    url.searchParams.append("shopname", "");
     console.log(String(url));
     await fetch(url, {
       method: methods.GET,
@@ -71,21 +70,6 @@ function Shopkeeper() {
       .then((res) => res.json())
       .then((obj) => {
         setUpozillaList(obj);
-      });
-  };
-
-  // handle upozilla select
-  const handleSelectUpozilla = async (s_upozilla) => {
-    setUpozilla(s_upozilla);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
-    url.searchParams.append("upzila", s_upozilla);
-    await fetch(url, {
-      method: methods.GET,
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((obj) => {
-        setShopnameList(obj);
       });
   };
 
@@ -125,7 +109,7 @@ function Shopkeeper() {
                 fullWidth
                 value={upozilla}
                 sx={select_styles}
-                onChange={(e) => handleSelectUpozilla(e.target.value)}
+                onChange={(e) => setUpozilla(e.target.value)}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="Upozilla"
@@ -142,28 +126,29 @@ function Shopkeeper() {
           <div className={styles.rowContainer1}>
             <FormControl sx={{ m: 1, minWidth: "100%" }}>
               <InputLabel id="demo-simple-select-helper-label">
-                Shopname
+                Status
               </InputLabel>
               <Select
                 fullWidth
-                value={shopname}
+                value={status}
                 sx={select_styles}
-                onChange={(e) => setShopname(e.target.value)}
+                onChange={(e) => setStatus(e.target.value)}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="Shopname"
               >
-                <MenuItem value="">
-                  <em>Select</em>
+                <MenuItem value="approved">
+                  Approved
                 </MenuItem>
-                {shopnameList.map((obj) => (
-                  <MenuItem value={obj.shopname}>{obj.shopname}</MenuItem>
-                ))}
+                <MenuItem value="pending">
+                  Pending
+                </MenuItem>
+                <MenuItem value="rejected">
+                  Rejected
+                </MenuItem>
               </Select>
             </FormControl>
           </div>
-
-          <div style={{ height: "1rem" }}></div>
 
           <div className={styles.rowContainer1}>
             <LoadingButton

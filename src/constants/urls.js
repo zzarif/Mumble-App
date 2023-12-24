@@ -6,6 +6,6 @@ export const urls = {
     REPORTS: "reports",
     DISTRICT: "dispatches",
     ITEMS: "items",
-    SUMMARY: "summary",
+    USER_LIST: "co-ordinators",
     SETTINGS: "settings",
 }

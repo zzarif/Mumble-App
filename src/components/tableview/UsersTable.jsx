@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { MenuItem, Select } from "@mui/material";
+import { Checkbox, MenuItem, Select } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { select_styles } from "../../constants/select_styles";
 
@@ -36,21 +36,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-function SummaryTable({ resultList, setResultList }) {
+function UsersTable({ resultList, setResultList }) {
 
 // handle status select
-  const handleSelectStatus = async (row_code,s_status) => {
+  const handleStatusUpdate = async (rowData,new_status) => {
     const updatedResultList = resultList.map(result =>
-      result.strShopKeeperCode === row_code ? { ...result, status: s_status } : result
+      result.id === rowData.id ? { ...result, Active: new_status } : result
     );
     setResultList(updatedResultList);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeeper/status");
-    url.searchParams.append("strShopKeeperCode", row_code);
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
+    url.searchParams.append("id", rowData.id);
     await fetch(url, {
       method: methods.PUT,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        status: s_status
+        name: rowData.name,
+        phone: rowData.phone,
+        pin: rowData.pin,
+        level: rowData.level,
+        District: rowData.District,
+        Active: new_status
       })
     })
       .then((res) => res.json())
@@ -68,16 +73,19 @@ function SummaryTable({ resultList, setResultList }) {
               <b>Name</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Shop</b>
-            </StyledTableCell>
-            <StyledTableCell align="right">
               <b>Phone</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Email</b>
+              <b>PIN</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Total</b>
+              <b>Level</b>
+            </StyledTableCell>
+            <StyledTableCell align="right">
+              <b>District</b>
+            </StyledTableCell>
+            <StyledTableCell align="right">
+              <b>Approve</b>
             </StyledTableCell>
           </StyledTableRow>
         </TableHead>
@@ -90,30 +98,23 @@ function SummaryTable({ resultList, setResultList }) {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.shopname}</StyledTableCell>
               <StyledTableCell align="right">{row.phone}</StyledTableCell>
-              <StyledTableCell align="right">{row.email}</StyledTableCell>
-              <StyledTableCell align="right">{row.name}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-          {/* {totalAmount && (
-            <StyledTableRow
-              key={-1}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <StyledTableCell component="th" scope="row"></StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right">{row.pin}</StyledTableCell>
+              <StyledTableCell align="right">{row.level}</StyledTableCell>
+              <StyledTableCell align="right">{row.District}</StyledTableCell>
               <StyledTableCell align="right">
-                <b>Total: {totalAmount}</b>
+                <Checkbox
+                  checked={row.Active}
+                  onChange={(e) => handleStatusUpdate(row,e.target.checked)}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
               </StyledTableCell>
             </StyledTableRow>
-          )} */}
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
 
-export default SummaryTable;
+export default UsersTable;
