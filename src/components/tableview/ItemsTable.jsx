@@ -44,7 +44,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function ItemsTable({ resultList, loadItemList }) {
-  const [data, setData] = useState(null);
+  const [ID,setID] = useState("");
+  const [name, setName] = useState("");
+  const [max, setMax] = useState("");
+  const [price, setPrice] = useState("");
   const [open, setOpen] = useState(false);
 
   // handle delete item
@@ -97,7 +100,10 @@ function ItemsTable({ resultList, loadItemList }) {
                   <IconButton edge="end" aria-label="update">
                     <EditOutlined
                       onClick={() => {
-                        setData(row);
+                        setID(row.id);
+                        setName(row.name);
+                        setMax(row.max);
+                        setPrice(row.price);
                         setOpen(true);
                       }}
                     />
@@ -113,7 +119,18 @@ function ItemsTable({ resultList, loadItemList }) {
           </TableBody>
         </Table>
       </TableContainer>
-      {data && <UpdateItem open={open} setOpen={setOpen} data={data} loadItemList={loadItemList}/>}
+      <UpdateItem 
+        open={open}
+        setOpen={setOpen}
+        ID={ID}
+        name={name}
+        setName={setName}
+        max={max}
+        setMax={setMax}
+        price={price}
+        setPrice={setPrice}
+        loadItemList={loadItemList}
+      />
     </>
   );
 }

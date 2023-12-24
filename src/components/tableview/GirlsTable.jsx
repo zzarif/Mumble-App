@@ -112,7 +112,7 @@ function GirlsTable({ resultList, loadGirlList }) {
                 <StyledTableCell align="right">{row.strName}</StyledTableCell>
                 {/* <StyledTableCell align="right">{row.strEmail}</StyledTableCell> */}
                 <StyledTableCell align="right">{row.strPhone}</StyledTableCell>
-                <StyledTableCell align="right">{row.strDOB}</StyledTableCell>
+                <StyledTableCell align="right">{new Date(row.strDOB).toISOString().replace(/T.*/g,'')}</StyledTableCell>
                 <StyledTableCell align="right">{row.strDistrict}</StyledTableCell>
                 <StyledTableCell align="right">{row.strSubLocation}</StyledTableCell>
                 <StyledTableCell align="right">

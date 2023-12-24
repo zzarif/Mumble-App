@@ -9,18 +9,25 @@ import { LoadingButton } from "@mui/lab";
 import { btn_styles2 } from "../../constants/btn_styles2";
 import { methods } from "../../constants/methods";
 
-export default function UpdateItem({ open, setOpen, data, loadItemList }) {
-  const [name, setName] = useState(data.name);
-  const [max, setMax] = useState(data.max);
-  const [price, setPrice] = useState(data.price);
-
+export default function UpdateItem({ 
+  open, 
+  setOpen,
+  ID,
+  name,
+  setName,
+  max,
+  setMax,
+  price,
+  setPrice, 
+  loadItemList 
+}) {
   const [loading, setLoading] = useState(false);
   // handle update
   const handleUpdate = async (event) => {
     event.preventDefault();
     setLoading(true);
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "item");
-    url.searchParams.append("id", data.id);
+    url.searchParams.append("id", ID);
     await fetch(url, {
       method: methods.PUT,
       headers: { "Content-Type": "application/json" },
