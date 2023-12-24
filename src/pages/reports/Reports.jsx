@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./reports.module.css";
 import {
-  Button,
-  Chip,
-  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { Search } from "@mui/icons-material";
@@ -21,7 +17,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { select_styles } from "../../constants/select_styles";
-import ShopkeeperTable from "../../components/tableview/ShopkeeperTable";
+import ReportsTable from "../../components/tableview/ReportsTable";
 
 function Reports() {
   // today date mm/dd/yyyy
@@ -39,7 +35,6 @@ function Reports() {
   const [startDate, setStartDate] = useState(dayjs(today));
   const [endDate, setEndDate] = useState(dayjs(today));
   const [resultList, setResultList] = useState([]);
-  const [totalAmount, setTotalAmount] = useState("");
 
   // Pagination loader
   const [loading, setLoading] = useState(false);
@@ -47,24 +42,26 @@ function Reports() {
   // load result list given params
   const loadResultList = async () => {
     setLoading(true);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeeper/report");
     url.searchParams.append("district", district);
     url.searchParams.append("upzila", upozilla);
-    url.searchParams.append("shopname", shopname);
-    console.log(String(url));
+    url.searchParams.append("startDate", startDate);
+    url.searchParams.append("endDate", endDate);
     await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
       .then((obj) => {
-        setResultList(obj);
-        setLoading(false);
-      });
+        setResultList(obj.result);
+      })
+      .catch((err) => alert(err))
+      .finally(() => setLoading(false));
   };
 
   // handle district select
   const handleSelectDistrict = async (s_district) => {
+    setUpozilla("");
     setDistrict(s_district);
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
     url.searchParams.append("district", s_district);
@@ -75,21 +72,6 @@ function Reports() {
       .then((res) => res.json())
       .then((obj) => {
         setUpozillaList(obj);
-      });
-  };
-
-  // handle upozilla select
-  const handleSelectUpozilla = async (s_upozilla) => {
-    setUpozilla(s_upozilla);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
-    url.searchParams.append("upzila", s_upozilla);
-    await fetch(url, {
-      method: methods.GET,
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((obj) => {
-        setShopnameList(obj);
       });
   };
 
@@ -129,7 +111,7 @@ function Reports() {
                 fullWidth
                 value={upozilla}
                 sx={select_styles}
-                onChange={(e) => handleSelectUpozilla(e.target.value)}
+                onChange={(e) => setUpozilla(e.target.value)}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="Upozilla"
@@ -184,7 +166,7 @@ function Reports() {
 
       <div style={{ height: "2rem" }}></div>
 
-      <ShopkeeperTable resultList={resultList} setResultList={setResultList} totalAmount={totalAmount} />
+      <ReportsTable resultList={resultList} setResultList={setResultList} />
 
       <div style={{ height: "6rem" }}></div>
     </>

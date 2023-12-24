@@ -6,7 +6,7 @@ import Sheet from "@mui/joy/Sheet";
 import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import { DeleteOutline, Inventory2Rounded } from "@mui/icons-material";
 
-export default function PreviewDispatch({ open, setOpen, data }) {
+export default function PreviewReport({ open, setOpen, data }) {
   return (
     <Fragment>
       <Modal
@@ -35,16 +35,16 @@ export default function PreviewDispatch({ open, setOpen, data }) {
             fontWeight="lg"
             mb={1}
           >
-            Dispatch Details
+            Report Details
           </Typography>
           <List>
-            {data.EntriesInvoices&&data.EntriesInvoices.map((item, idx) => (
+            {data.Invcoices&&data.Invcoices.map((item, idx) => (
               <ListItem
                 key={idx}
                 disableGutters
                 secondaryAction={
                   <Typography id="modal-desc" textColor="text.tertiary">
-                    {item.totalAmt}
+                    {item.grossamt}
                   </Typography>
                 }
               >
@@ -54,22 +54,12 @@ export default function PreviewDispatch({ open, setOpen, data }) {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={item.nItemCode}
-                  secondary={item.unitAmt}
+                  primary={item.ReceiptNumber}
+                  secondary={item.girlPhone}
                 />
               </ListItem>
             ))}
           </List>
-          {/* {data.map((obj, idx) => (
-            <div className={styles.keyvalue} key={idx}>
-              <Typography id="modal-desc" textColor="text.tertiary">
-                <b>{obj.first}</b>
-              </Typography>
-              <Typography id="modal-desc" textColor="text.tertiary">
-                {obj.second}
-              </Typography>
-            </div>
-          ))} */}
         </Sheet>
       </Modal>
     </Fragment>
