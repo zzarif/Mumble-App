@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import navItems from "./navItems.json";
 import styles from "./navbar.module.css";
 
 const Navbar = ({ children }) => {
+  const [menuItems,setmenuItems] = useState(navItems);
+
   return (
     <>
       <main>{children}</main>
@@ -16,8 +18,8 @@ const Navbar = ({ children }) => {
               <img src="/navbar/right-arrow.png"></img>
             </a>
           </li>
-          {navItems.map((item, idx) => (
-            <li key={idx} className={styles.navItem}>
+          {menuItems.map((item) => (
+            <li key={item.id} className={styles.navItem}>
               <a href={item.path} className={styles.navLink}>
                 <img src={item.imageLink}></img>
                 <span className={styles.linkText}>{item.title}</span>

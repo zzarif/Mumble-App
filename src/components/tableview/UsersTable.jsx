@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Checkbox, MenuItem, Select } from "@mui/material";
+import { Alert, Checkbox, MenuItem, Select, Snackbar } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { select_styles } from "../../constants/select_styles";
 
@@ -58,13 +58,19 @@ function UsersTable({ resultList, setResultList }) {
         Active: new_status
       })
     })
-      .then((res) => res.json())
-      .then((obj) => {
+      .then((res) => {
+        if(res.ok) {if(new_status) setOpen(true);}
+        else alert("Something went wrong");
       })
       .catch((err) => alert(err));
   };
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
+    <>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -114,6 +120,12 @@ function UsersTable({ resultList, setResultList }) {
         </TableBody>
       </Table>
     </TableContainer>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+        Co-ordinator approved.
+      </Alert>
+    </Snackbar>
+    </>
   );
 }
 
