@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import districtList from "../../constants/districtList.json";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -32,12 +32,18 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
   const [district, setDistrict] = useState("");
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
+
+  const [name,setName] = useState("");
+  const [phone,setPhone] = useState("");
+
+  useEffect(() => {
+    handleSelectDistrict();
+  },[district]);
+
   // handle district select
-  const handleSelectDistrict = async (s_district) => {
-    setDistrict(s_district);
-    setUpozilla("");
+  const handleSelectDistrict = async () => {
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
-    url.searchParams.append("district", s_district);
+    url.searchParams.append("district", district);
     await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
@@ -53,32 +59,26 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setOpen(false);
-      loadGirlList();
-    }, 2000);
-    // const data = new FormData(event.currentTarget);
-    // const url = new URL(import.meta.env.VITE_API_BASE_URL + "girl");
-    // await fetch(url, {
-    //   method: methods.POST,
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     name: data.get("name"),
-    //     phone: data.get("phone"),
-    //     pin: data.get("pin"),
-    //     district: district,
-    //     upzilla: upozilla
-    //   })
-    // }).then((res) => {
-    //   if(!res.ok) {
-    //     setOpen(true);
-    //   }
-    //   else return res.json();
-    // }).then((obj) => {
-    //     //
-    //   })
-    //   .finally(() => setLoading(false));
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "girl");
+    await fetch(url, {
+      method: methods.POST,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        strName: name,
+        strPhone: phone,
+        strDistrict: district,
+        strSubLocation: upozilla,
+        strDOB: DOB
+      })
+    }).then((res) => {
+      if(res.ok) {
+        setOpen(false);
+        loadGirlList();
+      }
+      else alert("Something went wrong.");
+    })
+    .catch((err) => alert(err))
+    .finally(() => setLoading(false));
   };
 
   return (
@@ -136,6 +136,8 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                     id="name"
                     label="Name"
                     name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     autoFocus
                   />
                 </Grid>
@@ -147,15 +149,8 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                     label="Phone Number"
                     name="phone"
                     type="number"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    name="email"
-                    label="Email"
-                    id="email"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </Grid>
 
@@ -164,7 +159,7 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                     <DemoContainer components={["DatePicker", "DatePicker"]}>
                       <DatePicker
                         label="Date of Birth"
-                        value={DOB}
+                        value={dayjs(DOB)}
                         onChange={(newValue) =>
                           setDOB(new Date(newValue).toUTCString())
                         }
@@ -182,7 +177,7 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                     <Select
                       fullWidth
                       value={district}
-                      onChange={(e) => handleSelectDistrict(e.target.value)}
+                      onChange={(e) => setDistrict(e.target.value)}
                       labelId="demo-simple-select-helper-label"
                       id="demo-simple-select-helper"
                       label="District"

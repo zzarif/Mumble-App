@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -44,13 +44,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function GirlsTable({ resultList, loadGirlList }) {
-  const [data, setData] = useState(null);
+  // selected fields
+  const [code,setCode] = useState("");
+  const [name,setName] = useState("");
+  const [phone,setPhone] = useState("");
+  const [DOB, setDOB] = useState("");
+  const [district,setDistrict] = useState("");
+  const [upozilla,setUpozilla] = useState("");
+
   const [open, setOpen] = useState(false);
 
   // handle delete item
   const handleDelete = async (id) => {
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "girl");
-    url.searchParams.append("id", id);
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + `girl/${id}`);
     await fetch(url, {
       method: methods.DELETE,
       headers: { "Content-Type": "application/json" },
@@ -75,9 +81,9 @@ function GirlsTable({ resultList, loadGirlList }) {
               <StyledTableCell align="right">
                 <b>Name</b>
               </StyledTableCell>
-              <StyledTableCell align="right">
+              {/* <StyledTableCell align="right">
                 <b>Email</b>
-              </StyledTableCell>
+              </StyledTableCell> */}
               <StyledTableCell align="right">
                 <b>Phone</b>
               </StyledTableCell>
@@ -104,7 +110,7 @@ function GirlsTable({ resultList, loadGirlList }) {
                   {row.strGirlCode}
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.strName}</StyledTableCell>
-                <StyledTableCell align="right">{row.strEmail}</StyledTableCell>
+                {/* <StyledTableCell align="right">{row.strEmail}</StyledTableCell> */}
                 <StyledTableCell align="right">{row.strPhone}</StyledTableCell>
                 <StyledTableCell align="right">{row.strDOB}</StyledTableCell>
                 <StyledTableCell align="right">{row.strDistrict}</StyledTableCell>
@@ -113,7 +119,12 @@ function GirlsTable({ resultList, loadGirlList }) {
                   <IconButton edge="end" aria-label="update">
                     <EditOutlined
                       onClick={() => {
-                        setData(row);
+                        setCode(row.strGirlCode);
+                        setName(row.strName);
+                        setPhone(row.strPhone);
+                        setDOB(row.strDOB);
+                        setDistrict(row.strDistrict);
+                        setUpozilla(row.strSubLocation);
                         setOpen(true);
                       }}
                     />
@@ -121,7 +132,7 @@ function GirlsTable({ resultList, loadGirlList }) {
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <IconButton edge="end" aria-label="delete">
-                    <DeleteOutline onClick={() => handleDelete(row.id)} />
+                    <DeleteOutline onClick={() => handleDelete(row.strGirlCode)} />
                   </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
@@ -129,7 +140,22 @@ function GirlsTable({ resultList, loadGirlList }) {
           </TableBody>
         </Table>
       </TableContainer>
-      {data && <UpdateGirl open={open} setOpen={setOpen} data={data} loadGirlList={loadGirlList}/>}
+      <UpdateGirl 
+        open={open} 
+        setOpen={setOpen} 
+        code={code}
+        name={name}
+        setName={setName}
+        phone={phone}
+        setPhone={setPhone}
+        DOB={DOB}
+        setDOB={setDOB}
+        district={district}
+        setDistrict={setDistrict}
+        upozilla={upozilla}
+        setUpozilla={setUpozilla}
+        loadGirlList={loadGirlList}
+      />
     </>
   );
 }

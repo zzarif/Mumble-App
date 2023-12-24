@@ -21,29 +21,30 @@ import { AppRegistration, EditOutlined } from "@mui/icons-material";
 import { Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 
 
-export default function UpdateGirl({ open, setOpen, data, loadGirlList }) {
-  // today date mm/dd/yyyy
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, "0");
-  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  var yyyy = today.getFullYear();
-  today = mm + "/" + dd + "/" + yyyy;
-  const [DOB, setDOB] = useState(dayjs(data.strDOB));
-  const [district, setDistrict] = useState(data.strDistrict);
+export default function UpdateGirl({ 
+  open, 
+  setOpen,
+  code,
+  name,
+  setName,
+  phone,
+  setPhone,
+  DOB,
+  setDOB,
+  district,
+  setDistrict,
+  upozilla,
+  setUpozilla,
+  loadGirlList 
+}) {
   const [upozillaList, setUpozillaList] = useState([]);
-  const [upozilla, setUpozilla] = useState(data.strSubLocation);
-
-  const [name, setName] = useState(data.strName);
-  const [phone, setPhone] = useState(data.strPhone);
-  const [email, setEmail] = useState(data.strEmail);
 
   useEffect(() => {
     handleSelectDistrict();
-  }, [district]);
+  },[district]);
 
   // handle district select
   const handleSelectDistrict = async () => {
-    setUpozilla("");
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
     url.searchParams.append("district", district);
     await fetch(url, {
@@ -57,36 +58,32 @@ export default function UpdateGirl({ open, setOpen, data, loadGirlList }) {
   };
 
   const [loading, setLoading] = useState(false);
-  // handle submit sign up
+  // handle submit update
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setOpen(false);
-      loadGirlList();
-    }, 2000);
-    // const data = new FormData(event.currentTarget);
-    // const url = new URL(import.meta.env.VITE_API_BASE_URL + "girl");
-    // await fetch(url, {
-    //   method: methods.POST,
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     name: data.get("name"),
-    //     phone: data.get("phone"),
-    //     pin: data.get("pin"),
-    //     district: district,
-    //     upzilla: upozilla
-    //   })
-    // }).then((res) => {
-    //   if(!res.ok) {
-    //     setOpen(true);
-    //   }
-    //   else return res.json();
-    // }).then((obj) => {
-    //     //
-    //   })
-    //   .finally(() => setLoading(false));
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "girl");
+    url.searchParams.append("strGirlCode",code);
+    await fetch(url, {
+      method: methods.PUT,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        strName: name,
+        strPhone: phone,
+        strDistrict: district,
+        strSubLocation: upozilla,
+        strDOB: DOB,
+        active: false
+      })
+    }).then((res) => {
+      if(res.ok) {
+        setOpen(false);
+        loadGirlList();
+      }
+      else alert("Something went wrong.");
+    })
+    .catch((err) => alert(err))
+    .finally(() => setLoading(false));
   };
 
   return (
@@ -151,6 +148,7 @@ export default function UpdateGirl({ open, setOpen, data, loadGirlList }) {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    disabled
                     required
                     fullWidth
                     id="phone"
@@ -161,24 +159,13 @@ export default function UpdateGirl({ open, setOpen, data, loadGirlList }) {
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    name="email"
-                    label="Email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </Grid>
 
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={["DatePicker", "DatePicker"]}>
                       <DatePicker
                         label="Date of Birth"
-                        value={DOB}
+                        value={dayjs(DOB)}
                         onChange={(newValue) =>
                           setDOB(new Date(newValue).toUTCString())
                         }

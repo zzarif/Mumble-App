@@ -48,8 +48,8 @@ const GirlRegistration = () => {
 
       <div style={{ height: "1rem" }}></div>
 
-      <GirlsTable resultList={resultList} loadItemList={loadGirlList} />
-      <AddGirl open={open} setOpen={setOpen} loadItemList={loadGirlList} />
+      <GirlsTable resultList={resultList} loadGirlList={loadGirlList} />
+      <AddGirl open={open} setOpen={setOpen} loadGirlList={loadGirlList} />
 
       <div style={{ height: "6rem" }}></div>
     </>
