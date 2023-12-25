@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { MenuItem, Select } from "@mui/material";
+import { Alert, MenuItem, Select, Snackbar } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { select_styles } from "../../constants/select_styles";
 
@@ -38,10 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function ShopkeeperTable({ resultList, setResultList }) {
 
-  // array of action status
-  const [statusList,setStatusList] = useState([]);
-
-// handle status select
+  // handle status select
   const handleSelectStatus = async (row_code,s_status) => {
     const updatedResultList = resultList.map(result =>
       result.strShopKeeperCode === row_code ? { ...result, status: s_status } : result
@@ -56,31 +53,43 @@ function ShopkeeperTable({ resultList, setResultList }) {
         status: s_status
       })
     })
-      .then((res) => res.json())
-      .then((obj) => {
+      .then((res) => {
+        if(res.ok) setOpen(true);
+        else alert("Something went wrong");
       })
       .catch((err) => alert(err));
   };
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
+    <>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <StyledTableRow>
             <StyledTableCell>
-              <b>Name</b>
+              <b>Code</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Shop</b>
+              <b>Shopname</b>
+            </StyledTableCell>
+            <StyledTableCell align="right">
+              <b>Owner</b>
             </StyledTableCell>
             <StyledTableCell align="right">
               <b>Phone</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Email</b>
+              <b>District</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Action</b>
+              <b>Upozilla</b>
+            </StyledTableCell>
+            <StyledTableCell align="right">
+              <b>Status</b>
             </StyledTableCell>
           </StyledTableRow>
         </TableHead>
@@ -91,11 +100,13 @@ function ShopkeeperTable({ resultList, setResultList }) {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {row.strShopKeeperCode}
               </StyledTableCell>
               <StyledTableCell align="right">{row.shopname}</StyledTableCell>
+              <StyledTableCell align="right">{row.name}</StyledTableCell>
               <StyledTableCell align="right">{row.phone}</StyledTableCell>
-              <StyledTableCell align="right">{row.email}</StyledTableCell>
+              <StyledTableCell align="right">{row.district}</StyledTableCell>
+              <StyledTableCell align="right">{row.upzila}</StyledTableCell>
               <StyledTableCell align="right">
                 <Select
                   value={row.status}
@@ -114,6 +125,12 @@ function ShopkeeperTable({ resultList, setResultList }) {
         </TableBody>
       </Table>
     </TableContainer>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+        Status updated successfully.
+      </Alert>
+    </Snackbar>
+    </>
   );
 }
 

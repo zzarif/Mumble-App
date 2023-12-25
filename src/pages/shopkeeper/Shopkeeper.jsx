@@ -34,7 +34,6 @@ function Shopkeeper() {
   const [status, setStatus] = useState("");
 
   const [resultList, setResultList] = useState([]);
-  const [totalAmount, setTotalAmount] = useState("");
 
   // Pagination loader
   const [loading, setLoading] = useState(false);
@@ -45,8 +44,7 @@ function Shopkeeper() {
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
     url.searchParams.append("district", district);
     url.searchParams.append("upzila", upozilla);
-    url.searchParams.append("shopname", "");
-    console.log(String(url));
+    url.searchParams.append("status", status);
     await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
@@ -54,12 +52,14 @@ function Shopkeeper() {
       .then((res) => res.json())
       .then((obj) => {
         setResultList(obj);
-        setLoading(false);
-      });
+      })
+      .catch((err) => alert(err))
+      .finally(() => setLoading(false));
   };
 
   // handle district select
   const handleSelectDistrict = async (s_district) => {
+    setUpozilla("");
     setDistrict(s_district);
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
     url.searchParams.append("district", s_district);
@@ -167,7 +167,7 @@ function Shopkeeper() {
 
       <div style={{ height: "2rem" }}></div>
 
-      <ShopkeeperTable resultList={resultList} setResultList={setResultList} totalAmount={totalAmount} />
+      <ShopkeeperTable resultList={resultList} setResultList={setResultList} />
 
       <div style={{ height: "6rem" }}></div>
     </>
