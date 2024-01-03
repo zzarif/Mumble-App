@@ -185,8 +185,8 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                       <MenuItem value="">
                         <em>Select</em>
                       </MenuItem>
-                      {districtList.map((obj) => (
-                        <MenuItem value={obj.district}>{obj.district}</MenuItem>
+                      {districtList.map((obj,idx) => (
+                        <MenuItem key={idx} value={obj.district}>{obj.district}</MenuItem>
                       ))}
                     </Select>
                   </FormControl>
@@ -207,8 +207,8 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                       <MenuItem value="">
                         <em>Select</em>
                       </MenuItem>
-                      {upozillaList.map((obj) => (
-                        <MenuItem value={obj.upazilla}>{obj.upazilla}</MenuItem>
+                      {upozillaList.map((obj,idx) => (
+                        <MenuItem key={idx} value={obj.upazilla}>{obj.upazilla}</MenuItem>
                       ))}
                     </Select>
                   </FormControl>

@@ -116,23 +116,25 @@ function GirlsTable({ resultList, loadGirlList }) {
                 <StyledTableCell align="right">{row.strDistrict}</StyledTableCell>
                 <StyledTableCell align="right">{row.strSubLocation}</StyledTableCell>
                 <StyledTableCell align="right">
-                  <IconButton edge="end" aria-label="update">
-                    <EditOutlined
-                      onClick={() => {
-                        setCode(row.strGirlCode);
-                        setName(row.strName);
-                        setPhone(row.strPhone);
-                        setDOB(row.strDOB);
-                        setDistrict(row.strDistrict);
-                        setUpozilla(row.strSubLocation);
-                        setOpen(true);
-                      }}
-                    />
+                  <IconButton 
+                    edge="end" 
+                    aria-label="update"
+                    onClick={() => {
+                      setCode(row.strGirlCode);
+                      setName(row.strName);
+                      setPhone(row.strPhone);
+                      setDOB(row.strDOB);
+                      setDistrict(row.strDistrict);
+                      setUpozilla(row.strSubLocation);
+                      setOpen(true);
+                    }}
+                    >
+                    <EditOutlined />
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <IconButton edge="end" aria-label="delete">
-                    <DeleteOutline onClick={() => handleDelete(row.strGirlCode)} />
+                  <IconButton onClick={() => handleDelete(row.strGirlCode)} edge="end" aria-label="delete">
+                    <DeleteOutline />
                   </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
