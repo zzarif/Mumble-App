@@ -39,6 +39,27 @@ function Reports() {
   // Pagination loader
   const [loading, setLoading] = useState(false);
 
+  // load all reports
+  useEffect(() => {
+    (async () => {
+      const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeeper/report");
+      url.searchParams.append("district", "");
+      url.searchParams.append("upzila", "");
+      url.searchParams.append("startDate", "");
+      url.searchParams.append("endDate", "");
+      await fetch(url, {
+        method: methods.GET,
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((obj) => {
+          setResultList(obj.result);
+        })
+        .catch((err) => alert(err))
+        .finally(() => setLoading(false));
+    })();
+  },[]);
+
   // load result list given params
   const loadResultList = async () => {
     setLoading(true);

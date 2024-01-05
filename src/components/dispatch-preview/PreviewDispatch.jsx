@@ -19,10 +19,12 @@ export default function PreviewDispatch({ open, setOpen, data }) {
         <Sheet
           variant="outlined"
           sx={{
-            maxWidth: 400,
+            minWidth: 300,
+            maxHeight: 400,
             borderRadius: "md",
             p: 3,
             boxShadow: "lg",
+            overflowY: "auto"
           }}
         >
           <ModalClose variant="plain" sx={{ m: 1 }} />

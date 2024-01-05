@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./dispatch.module.css";
 import {
-  Button,
-  Chip,
-  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { Search } from "@mui/icons-material";
@@ -47,6 +43,27 @@ function Dispatches() {
   // Pagination loader
   const [loading, setLoading] = useState(false);
 
+  // load all dispatch
+  useEffect(() => {
+    (async () => {
+      const url = new URL(import.meta.env.VITE_API_BASE_URL + "invoices/web");
+      url.searchParams.append("district", "");
+      url.searchParams.append("upzila", "");
+      url.searchParams.append("shopname", "");
+      url.searchParams.append("startDate", "");
+      url.searchParams.append("endDate", "");
+      await fetch(url, {
+        method: methods.GET,
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((obj) => {
+          setResultList(obj.result);
+          setTotalAmount(obj.total[0].totalAmount);
+        });
+    })();
+  },[]);
+
   // load result list given params
   const loadResultList = async () => {
     setLoading(true);
@@ -56,7 +73,6 @@ function Dispatches() {
     url.searchParams.append("shopname", shopname);
     url.searchParams.append("startDate", startDate);
     url.searchParams.append("endDate", endDate);
-    console.log(String(url));
     await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
@@ -65,8 +81,9 @@ function Dispatches() {
       .then((obj) => {
         setResultList(obj.result);
         setTotalAmount(obj.total[0].totalAmount);
-        setLoading(false);
-      });
+      })
+      .catch((err) => alert(err))
+      .finally(() => setLoading(false));
   };
 
   // handle district select
