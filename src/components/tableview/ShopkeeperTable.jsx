@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Alert, MenuItem, Select, Snackbar } from "@mui/material";
 import { methods } from "../../constants/methods";
-import { select_styles } from "../../constants/select_styles";
+import { select_styles2 } from "../../constants/select_styles2";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -110,7 +110,7 @@ function ShopkeeperTable({ resultList, setResultList }) {
               <StyledTableCell align="right">
                 <Select
                   value={row.status}
-                  sx={select_styles}
+                  sx={select_styles2}
                   onChange={(e) => handleSelectStatus(row.strShopKeeperCode,e.target.value)}
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"

@@ -21,7 +21,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import DispatchTable from "../../components/tableview/DispatchTable";
-import { in_props } from "../../constants/in_props";
 import { select_styles } from "../../constants/select_styles";
 
 function Dispatches() {
