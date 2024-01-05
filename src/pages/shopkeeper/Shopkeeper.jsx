@@ -38,6 +38,25 @@ function Shopkeeper() {
   // Pagination loader
   const [loading, setLoading] = useState(false);
 
+  // fetch all on load
+  useEffect(() => {
+    (async () => {
+      const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
+      url.searchParams.append("district", "");
+      url.searchParams.append("upzila", "");
+      url.searchParams.append("status", "");
+      await fetch(url, {
+        method: methods.GET,
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((obj) => {
+          setResultList(obj);
+        })
+        .catch((err) => alert(err));
+    })();
+  },[]);
+
   // load result list given params
   const loadResultList = async () => {
     setLoading(true);
