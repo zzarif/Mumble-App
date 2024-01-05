@@ -77,8 +77,8 @@ function DispatchTable({ resultList, totalAmount }) {
                 <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.district}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.upzila}</StyledTableCell>
-                <StyledTableCell align="right">{row.Girl.strName}</StyledTableCell>
-                <StyledTableCell align="right">{row.Girl.strPhone}</StyledTableCell>
+                <StyledTableCell align="right">{row.Girl?row.Girl.strName:"--"}</StyledTableCell>
+                <StyledTableCell align="right">{row.Girl?row.Girl.strPhone:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.grossamt}</StyledTableCell>
               </StyledTableRow>
             ))}
