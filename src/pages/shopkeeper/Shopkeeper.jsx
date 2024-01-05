@@ -103,7 +103,7 @@ function Shopkeeper() {
 
             <FormControl sx={{ m: 1, minWidth: "46%" }}>
               <InputLabel id="demo-simple-select-helper-label">
-                Upozilla
+                Upazilla
               </InputLabel>
               <Select
                 fullWidth

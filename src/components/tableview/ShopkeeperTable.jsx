@@ -86,7 +86,7 @@ function ShopkeeperTable({ resultList, setResultList }) {
               <b>District</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Upozilla</b>
+              <b>Upazilla</b>
             </StyledTableCell>
             <StyledTableCell align="right">
               <b>Status</b>

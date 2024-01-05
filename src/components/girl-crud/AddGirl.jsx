@@ -194,7 +194,7 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                 <Grid item xs={12} sm={6}>
                   <FormControl sx={{ minWidth: "100%" }}>
                     <InputLabel id="demo-simple-select-helper-label">
-                      Upozilla
+                      Upazilla
                     </InputLabel>
                     <Select
                       fullWidth

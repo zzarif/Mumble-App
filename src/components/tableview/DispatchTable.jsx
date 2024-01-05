@@ -56,7 +56,7 @@ function DispatchTable({ resultList, totalAmount }) {
               <StyledTableCell align="right"><b>Shopname</b></StyledTableCell>
               <StyledTableCell align="right"><b>Shopkeeper</b></StyledTableCell>
               <StyledTableCell align="right"><b>District</b></StyledTableCell>
-              <StyledTableCell align="right"><b>Upozilla</b></StyledTableCell>
+              <StyledTableCell align="right"><b>Upazilla</b></StyledTableCell>
               <StyledTableCell align="right"><b>Beneficiary Name</b></StyledTableCell>
               <StyledTableCell align="right"><b>Beneficiary Phone Number</b></StyledTableCell>
               <StyledTableCell align="right"><b>Total Amount</b></StyledTableCell>

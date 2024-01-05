@@ -9,7 +9,7 @@ function LandingPage() {
   const [authMethod, setAuthMethod] = useState(true);
 
   return localStorage.getItem("mumble") ? (
-    <Navigate to={urls.DISTRICT} />
+    <Navigate to={urls.GIRL_REGISTRATION} />
   ) : (
     <div>
       <Background />
