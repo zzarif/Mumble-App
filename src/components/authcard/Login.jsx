@@ -35,7 +35,7 @@ export default function Login({ setAuthMethod }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "loginUser");
     await fetch(url, {
       method: methods.POST,
       headers: { "Content-Type": "application/json" },
