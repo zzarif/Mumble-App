@@ -40,28 +40,38 @@ export default function SignUp({ setAuthMethod }) {
   // handle submit sign up
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
-    await fetch(url, {
-      method: methods.POST,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: Date.now(),
-        name: name,
-        phone: phone,
-        pin: pin,
-        level: 2,
-        District: district,
-        Active: false
+    if (name&&!phnError&&pin&&district) {
+      setLoading(true);
+      const url = new URL(import.meta.env.VITE_API_BASE_URL + "user");
+      await fetch(url, {
+        method: methods.POST,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: Date.now(),
+          name: name,
+          phone: phone,
+          pin: pin,
+          level: 2,
+          District: district,
+          Active: false,
+        }),
       })
-    }).then((res) => {
-      if(res.ok) {
-        setOpen(true);
-      }
-      else alert("Something went wrong!");
-    })
-      .catch((err) => alert(err))
-      .finally(() => setLoading(false));
+        .then((res) => {
+          if (res.ok) {
+            setOpen(true);
+          } else alert("Something went wrong!");
+        })
+        .catch((err) => alert(err))
+        .finally(() => setLoading(false));
+    } else alert("Please provide the required fields.");
+  };
+
+  const [phnError, setPhnError] = useState(false);
+  // handle phone number validation
+  const handleInputChange = (value) => {
+    const truncVal = value.slice(0, 11);
+    setPhone(truncVal);
+    setPhnError(!/^\d{11}$/.test(truncVal));
   };
 
   return (
@@ -114,8 +124,12 @@ export default function SignUp({ setAuthMethod }) {
                       label="Phone Number"
                       name="phone"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => handleInputChange(e.target.value)}
                       type="number"
+                      error={phnError}
+                      helperText={
+                        phnError ? "Phone number must be 11 digits" : ""
+                      }
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -133,7 +147,7 @@ export default function SignUp({ setAuthMethod }) {
                   <Grid item xs={12}>
                     <FormControl sx={{ minWidth: "100%" }}>
                       <InputLabel id="demo-simple-select-helper-label">
-                        District
+                        District *
                       </InputLabel>
                       <Select
                         fullWidth

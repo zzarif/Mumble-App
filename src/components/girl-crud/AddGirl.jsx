@@ -58,27 +58,37 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
   // handle submit sign up
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "girl");
-    await fetch(url, {
-      method: methods.POST,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        strName: name,
-        strPhone: phone,
-        strDistrict: district,
-        strSubLocation: upozilla,
-        strDOB: DOB
+    if(name&&!phnError&&DOB&&district&&upozilla) {
+      setLoading(true);
+      const url = new URL(import.meta.env.VITE_API_BASE_URL + "girl");
+      await fetch(url, {
+        method: methods.POST,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          strName: name,
+          strPhone: phone,
+          strDistrict: district,
+          strSubLocation: upozilla,
+          strDOB: DOB
+        })
+      }).then((res) => {
+        if(res.ok) {
+          setOpen(false);
+          loadGirlList();
+        }
+        else alert("Something went wrong.");
       })
-    }).then((res) => {
-      if(res.ok) {
-        setOpen(false);
-        loadGirlList();
-      }
-      else alert("Something went wrong.");
-    })
-    .catch((err) => alert(err))
-    .finally(() => setLoading(false));
+      .catch((err) => alert(err))
+      .finally(() => setLoading(false));
+    } else alert("Please provide the required fields.");
+  };
+
+  const [phnError, setPhnError] = useState(false);
+  // handle phone number validation
+  const handleInputChange = (value) => {
+    const truncVal = value.slice(0, 11);
+    setPhone(truncVal);
+    setPhnError(!/^\d{11}$/.test(truncVal));
   };
 
   return (
@@ -148,9 +158,13 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                     id="phone"
                     label="Phone Number"
                     name="phone"
-                    type="number"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => handleInputChange(e.target.value)}
+                    type="number"
+                    error={phnError}
+                    helperText={
+                      phnError ? "Phone number must be 11 digits" : ""
+                    }
                   />
                 </Grid>
 
@@ -172,7 +186,7 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                 <Grid item xs={12} sm={6}>
                   <FormControl sx={{ minWidth: "100%" }}>
                     <InputLabel id="demo-simple-select-helper-label">
-                      District
+                      District *
                     </InputLabel>
                     <Select
                       fullWidth
@@ -194,7 +208,7 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                 <Grid item xs={12} sm={6}>
                   <FormControl sx={{ minWidth: "100%" }}>
                     <InputLabel id="demo-simple-select-helper-label">
-                      Upazilla
+                      Upazilla *
                     </InputLabel>
                     <Select
                       fullWidth
