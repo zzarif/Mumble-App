@@ -68,9 +68,9 @@ function ShopkeeperTable({ resultList, setResultList }) {
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {resultList.map((row) => (
+          {resultList.map((row,idx) => (
             <StyledTableRow
-              key={row.ReceiptNumber}
+              key={idx}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <StyledTableCell component="th" scope="row">

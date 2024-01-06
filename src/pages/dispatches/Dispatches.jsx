@@ -144,8 +144,8 @@ function Dispatches() {
                 <MenuItem value="">
                   <em>Select</em>
                 </MenuItem>
-                {districtList.map((obj) => (
-                  <MenuItem value={obj.district}>{obj.district}</MenuItem>
+                {districtList.map((obj,idx) => (
+                  <MenuItem key={idx} value={obj.district}>{obj.district}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -166,8 +166,8 @@ function Dispatches() {
                 <MenuItem value="">
                   <em>Select</em>
                 </MenuItem>
-                {upozillaList.map((obj) => (
-                  <MenuItem value={obj.upazilla}>{obj.upazilla}</MenuItem>
+                {upozillaList.map((obj,idx) => (
+                  <MenuItem key={idx} value={obj.upazilla}>{obj.upazilla}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -189,8 +189,8 @@ function Dispatches() {
                 <MenuItem value="">
                   <em>Select</em>
                 </MenuItem>
-                {shopnameList.map((obj) => (
-                  <MenuItem value={obj.shopname}>{obj.shopname}</MenuItem>
+                {shopnameList.map((obj,idx) => (
+                  <MenuItem key={idx} value={obj.shopname}>{obj.shopname}</MenuItem>
                 ))}
               </Select>
             </FormControl>
