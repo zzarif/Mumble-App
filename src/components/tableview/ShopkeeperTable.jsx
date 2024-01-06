@@ -1,39 +1,13 @@
 import React, {useState} from "react";
-import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Alert, MenuItem, Select, Snackbar } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { select_styles2 } from "../../constants/select_styles2";
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    fontSize: "0.8rem",
-    fontFamily: "Poppins",
-    backgroundColor: "#2f2f3d",
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: "0.8rem",
-    fontFamily: "Inter",
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
-
+import { StyledTableCell, StyledTableRow} from "../../styles/table_styles";
 
 
 function ShopkeeperTable({ resultList, setResultList }) {

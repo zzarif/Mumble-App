@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import { navItems } from "./navItemsJson";
 
 const Navbar = ({ children }) => {
+  const [menuItems,setMenuItems] = useState(navItems);
+
+  useEffect(() => {
+    // remove co-ordinators if NOT admin
+    if(localStorage.getItem("mLevel") === "2") {
+      var fMenuItems = [...menuItems];
+      fMenuItems = fMenuItems.filter((item) => item.id !== 5);
+      setMenuItems(fMenuItems);
+    }
+  },[]);
+
   return (
     <>
       <main>{children}</main>
@@ -16,7 +27,7 @@ const Navbar = ({ children }) => {
               <img src="/navbar/right-arrow.png"></img>
             </a>
           </li>
-          {navItems.map((item) => (
+          {menuItems.map((item) => (
               <li key={item.id} className={styles.navItem}>
                 <a href={item.path} className={styles.navLink}>
                   <img src={item.imageLink}></img>

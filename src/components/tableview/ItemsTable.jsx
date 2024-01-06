@@ -1,47 +1,17 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton, MenuItem, Select, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { methods } from "../../constants/methods";
-import { select_styles } from "../../constants/select_styles";
 import {
   DeleteOutline,
-  Edit,
-  EditOff,
   EditOutlined,
-  UpdateOutlined,
-  UpdateRounded,
 } from "@mui/icons-material";
 import UpdateItem from "../items-crud/UpdateItem";
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    fontSize: "0.8rem",
-    fontFamily: "Poppins",
-    backgroundColor: "#2f2f3d",
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: "0.8rem",
-    fontFamily: "Inter",
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
+import { StyledTableCell, StyledTableRow} from "../../styles/table_styles";
 
 function ItemsTable({ resultList, loadItemList }) {
   const [ID,setID] = useState("");
@@ -86,9 +56,9 @@ function ItemsTable({ resultList, loadItemList }) {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {resultList.map((row) => (
+            {resultList.map((row,idx) => (
               <StyledTableRow
-                key={row.ReceiptNumber}
+                key={idx}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <StyledTableCell component="th" scope="row">
