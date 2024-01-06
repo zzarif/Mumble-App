@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./reports.module.css";
 import {
+  Box,
   FormControl,
   InputLabel,
   MenuItem,
@@ -18,6 +19,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { select_styles } from "../../constants/select_styles";
 import ReportsTable from "../../components/tableview/ReportsTable";
+import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
+import { centered } from "../../styles/centered";
 
 function Reports() {
   // today date mm/dd/yyyy
@@ -42,6 +45,7 @@ function Reports() {
   // load all reports
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeeper/report");
       url.searchParams.append("district", "");
       url.searchParams.append("upzila", "");
@@ -168,7 +172,7 @@ function Reports() {
             </DemoContainer>
           </LocalizationProvider>
 
-          <div style={{ height: "1rem" }}></div>
+          <div style={{ height: "0.5rem" }}></div>
 
           <div className={styles.rowContainer1}>
             <LoadingButton
@@ -185,9 +189,15 @@ function Reports() {
         </div>
       </div>
 
-      <div style={{ height: "2rem" }}></div>
+      <div style={{ height: "1rem" }}></div>
 
-      <ReportsTable resultList={resultList} setResultList={setResultList} />
+      {loading? (
+        <Box sx={centered}>
+          <FacebookCircularProgress />
+        </Box>
+      ) : (
+        <ReportsTable resultList={resultList} />
+      )}
 
       <div style={{ height: "6rem" }}></div>
     </>

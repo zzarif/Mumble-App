@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./shopkeeper.module.css";
 import {
+  Box,
   Button,
   Chip,
   CircularProgress,
@@ -17,6 +18,8 @@ import { LoadingButton } from "@mui/lab";
 import { btn_styles2 } from "../../constants/btn_styles2";
 import { select_styles } from "../../constants/select_styles";
 import ShopkeeperTable from "../../components/tableview/ShopkeeperTable";
+import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
+import { centered } from "../../styles/centered";
 
 function Shopkeeper() {
   // today date mm/dd/yyyy
@@ -41,6 +44,7 @@ function Shopkeeper() {
   // fetch all on load
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
       url.searchParams.append("district", "");
       url.searchParams.append("upzila", "");
@@ -53,7 +57,8 @@ function Shopkeeper() {
         .then((obj) => {
           setResultList(obj);
         })
-        .catch((err) => alert(err));
+        .catch((err) => alert(err))
+        .finally(() => setLoading(false));
     })();
   },[]);
 
@@ -184,9 +189,15 @@ function Shopkeeper() {
         </div>
       </div>
 
-      <div style={{ height: "2rem" }}></div>
+      <div style={{ height: "1rem" }}></div>
 
-      <ShopkeeperTable resultList={resultList} setResultList={setResultList} />
+      {loading? (
+        <Box sx={centered}>
+          <FacebookCircularProgress />
+        </Box>
+      ) : (
+        <ShopkeeperTable resultList={resultList} setResultList={setResultList} />
+      )}
 
       <div style={{ height: "6rem" }}></div>
     </>

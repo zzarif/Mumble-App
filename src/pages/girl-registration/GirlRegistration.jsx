@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./girls.module.css";
 import { methods } from "../../constants/methods";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { btn_styles } from "../../constants/btn_styles";
 import GirlsTable from "../../components/tableview/GirlsTable";
 import AddGirl from "../../components/girl-crud/AddGirl";
+import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
+import { centered } from "../../styles/centered";
 
 const GirlRegistration = () => {
   const [resultList, setResultList] = useState([]);
@@ -14,8 +16,10 @@ const GirlRegistration = () => {
     loadGirlList();
   }, []);
 
+  const [loading, setLoading] = useState(false);
   // load item list
   const loadGirlList = async () => {
+    setLoading(true);
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "girls");
     await fetch(url, {
       method: methods.GET,
@@ -25,7 +29,8 @@ const GirlRegistration = () => {
       .then((obj) => {
         setResultList(obj);
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err))
+      .finally(() => setLoading(false));
   };
 
   const [open, setOpen] = useState(false);
@@ -48,7 +53,14 @@ const GirlRegistration = () => {
 
       <div style={{ height: "1rem" }}></div>
 
-      <GirlsTable resultList={resultList} loadGirlList={loadGirlList} />
+      {loading? (
+        <Box sx={centered}>
+          <FacebookCircularProgress />
+        </Box>
+      ) : (
+        <GirlsTable resultList={resultList} loadGirlList={loadGirlList} />
+      )}
+
       <AddGirl open={open} setOpen={setOpen} loadGirlList={loadGirlList} />
 
       <div style={{ height: "6rem" }}></div>

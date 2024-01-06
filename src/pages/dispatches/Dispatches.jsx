@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./dispatch.module.css";
 import {
+  Box,
   FormControl,
   InputLabel,
   MenuItem,
@@ -18,6 +19,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import DispatchTable from "../../components/tableview/DispatchTable";
 import { select_styles } from "../../constants/select_styles";
+import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
+import { centered } from "../../styles/centered";
 
 function Dispatches() {
   // today date mm/dd/yyyy
@@ -46,6 +49,7 @@ function Dispatches() {
   // load all dispatch
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const url = new URL(import.meta.env.VITE_API_BASE_URL + "invoices/web");
       url.searchParams.append("district", "");
       url.searchParams.append("upzila", "");
@@ -60,7 +64,9 @@ function Dispatches() {
         .then((obj) => {
           setResultList(obj.result);
           setTotalAmount(obj.total[0].totalAmount);
-        });
+        })
+        .catch((err) => alert(err))
+        .finally(() => setLoading(false));
     })();
   },[]);
 
@@ -211,7 +217,7 @@ function Dispatches() {
             </DemoContainer>
           </LocalizationProvider>
 
-          <div style={{ height: "1rem" }}></div>
+          <div style={{ height: "0.5rem" }}></div>
 
           <div className={styles.rowContainer1}>
             <LoadingButton
@@ -228,9 +234,15 @@ function Dispatches() {
         </div>
       </div>
 
-      <div style={{ height: "2rem" }}></div>
+      <div style={{ height: "1rem" }}></div>
 
-      <DispatchTable resultList={resultList} totalAmount={totalAmount} />
+      {loading? (
+        <Box sx={centered}>
+          <FacebookCircularProgress />
+        </Box>
+      ) : (
+        <DispatchTable resultList={resultList} totalAmount={totalAmount} />
+      )}
 
       <div style={{ height: "6rem" }}></div>
     </>
