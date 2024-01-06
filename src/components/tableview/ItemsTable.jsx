@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton, MenuItem, Select } from "@mui/material";
+import { IconButton, MenuItem, Select, Tooltip } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { select_styles } from "../../constants/select_styles";
 import {
@@ -97,21 +97,25 @@ function ItemsTable({ resultList, loadItemList }) {
                 <StyledTableCell align="right">{row.max}</StyledTableCell>
                 <StyledTableCell align="right">{row.price}</StyledTableCell>
                 <StyledTableCell align="right">
-                  <IconButton edge="end" aria-label="update">
-                    <EditOutlined
-                      onClick={() => {
-                        setID(row.id);
-                        setName(row.name);
-                        setMax(row.max);
-                        setPrice(row.price);
-                        setOpen(true);
-                      }}
-                    />
+                  <IconButton edge="end" aria-label="update"
+                    onClick={() => {
+                      setID(row.id);
+                      setName(row.name);
+                      setMax(row.max);
+                      setPrice(row.price);
+                      setOpen(true);
+                    }}>
+                    <Tooltip id="update-item" title="Update Item">
+                      <EditOutlined />
+                    </Tooltip>
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <IconButton edge="end" aria-label="delete">
-                    <DeleteOutline onClick={() => handleDelete(row.id)} />
+                  <IconButton edge="end" aria-label="delete" 
+                    onClick={() => handleDelete(row.id)}>
+                    <Tooltip id="delete-item" title="Delete Item">
+                    <DeleteOutline />
+                    </Tooltip>
                   </IconButton>
                 </StyledTableCell>
               </StyledTableRow>

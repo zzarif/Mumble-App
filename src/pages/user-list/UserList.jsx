@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./users.module.css";
-import {
-  Box,
-  Button,
-  Chip,
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import { methods } from "../../constants/methods";
 import UsersTable from "../../components/tableview/UsersTable";
 import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";

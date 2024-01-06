@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton, MenuItem, Select } from "@mui/material";
+import { IconButton, MenuItem, Select, Tooltip } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { select_styles } from "../../constants/select_styles";
 import {
@@ -129,12 +129,16 @@ function GirlsTable({ resultList, loadGirlList }) {
                       setOpen(true);
                     }}
                     >
-                    <EditOutlined />
+                    <Tooltip id="update-girl" title="Update Girl">
+                      <EditOutlined />
+                    </Tooltip>
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <IconButton onClick={() => handleDelete(row.strGirlCode)} edge="end" aria-label="delete">
-                    <DeleteOutline />
+                    <Tooltip id="delete-girl" title="Delete Girl">
+                      <DeleteOutline />
+                    </Tooltip>
                   </IconButton>
                 </StyledTableCell>
               </StyledTableRow>

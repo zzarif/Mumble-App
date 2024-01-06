@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./items.module.css";
-import { Add, Logout } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import { Box, Button } from "@mui/material";
 import { btn_styles } from "../../constants/btn_styles";
-import { urls } from "../../constants/urls";
-import { useNavigate } from "react-router-dom";
 import { methods } from "../../constants/methods";
-import { btn_styles2 } from "../../constants/btn_styles2";
 import ItemsTable from "../../components/tableview/ItemsTable";
 import AddItem from "../../components/items-crud/AddItem";
 import { centered } from "../../styles/centered";

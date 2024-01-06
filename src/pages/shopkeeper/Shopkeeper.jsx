@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./shopkeeper.module.css";
 import {
   Box,
-  Button,
-  Chip,
-  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from "@mui/material";
 import { methods } from "../../constants/methods";
 import { Search } from "@mui/icons-material";
