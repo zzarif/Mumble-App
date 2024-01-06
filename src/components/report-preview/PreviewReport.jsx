@@ -1,10 +1,14 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
-import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
-import { DeleteOutline, Inventory2Rounded } from "@mui/icons-material";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import Paper from "@mui/material/Paper";
+import { StyledTableCell, StyledTableRow} from "../../styles/table_styles";
 
 export default function PreviewReport({ open, setOpen, data }) {
   return (
@@ -37,31 +41,43 @@ export default function PreviewReport({ open, setOpen, data }) {
             fontWeight="lg"
             mb={1}
           >
-            Report Details
+            List of Receipts
           </Typography>
-          <List>
-            {data.Invcoices&&data.Invcoices.map((item, idx) => (
-              <ListItem
-                key={idx}
-                disableGutters
-                secondaryAction={
-                  <Typography id="modal-desc" textColor="text.tertiary">
-                    {item.grossamt}
-                  </Typography>
-                }
-              >
-                <ListItemAvatar>
-                  <Avatar>
-                    <Inventory2Rounded />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={item.ReceiptNumber}
-                  secondary={item.girlPhone}
-                />
-              </ListItem>
-            ))}
-          </List>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 500 }} aria-label="simple table">
+              <TableHead>
+                <StyledTableRow>
+                  <StyledTableCell>
+                    <b>Receipt Number</b>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <b>Date</b>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <b>Beneficiary Name</b>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <b>Total Amount</b>
+                  </StyledTableCell>
+                </StyledTableRow>
+              </TableHead>
+              <TableBody>
+                {data.Invcoices&&data.Invcoices.map((row,idx) => (
+                  <StyledTableRow
+                    key={idx}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <StyledTableCell component="th" scope="row">
+                      {row.ReceiptNumber}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{new Date(row.Date).toLocaleString()}</StyledTableCell>
+                    <StyledTableCell align="right">{row.girlPhone}</StyledTableCell>
+                    <StyledTableCell align="right">{row.grossamt}</StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Sheet>
       </Modal>
     </Fragment>
