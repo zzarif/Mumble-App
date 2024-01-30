@@ -52,6 +52,7 @@ export default function Login({ setAuthMethod }) {
             if(obj.Active) {
                 localStorage.setItem("mumble","mumble");
                 localStorage.setItem("mLevel",obj.level);
+                localStorage.setItem("mDistrict",obj.District);
                 navigate(urls.GIRL_REGISTRATION);
             } else setOpen(true);
         }

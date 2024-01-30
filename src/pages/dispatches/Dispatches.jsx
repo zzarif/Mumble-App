@@ -30,7 +30,7 @@ function Dispatches() {
   var yyyy = today.getFullYear();
   today = mm + "/" + dd + "/" + yyyy;
   // all states
-  const [district, setDistrict] = useState("");
+  const [district, setDistrict] = useState(localStorage.getItem("mLevel") === "2"?localStorage.getItem("mDistrict"):"");
 
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
@@ -51,7 +51,7 @@ function Dispatches() {
     (async () => {
       setLoading(true);
       const url = new URL(import.meta.env.VITE_API_BASE_URL + "invoices/web");
-      url.searchParams.append("district", "");
+      url.searchParams.append("district", district);
       url.searchParams.append("upzila", "");
       url.searchParams.append("shopname", "");
       url.searchParams.append("startDate", "");
@@ -92,20 +92,21 @@ function Dispatches() {
       .finally(() => setLoading(false));
   };
 
-  // handle district select
-  const handleSelectDistrict = async (s_district) => {
-    setDistrict(s_district);
-    const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
-    url.searchParams.append("district", s_district);
-    await fetch(url, {
-      method: methods.GET,
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((obj) => {
-        setUpozillaList(obj);
-      });
-  };
+  useEffect(() => {
+    (async () => {
+      setUpozilla("");
+      const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
+      url.searchParams.append("district", district);
+      await fetch(url, {
+        method: methods.GET,
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((obj) => {
+          setUpozillaList(obj);
+        });
+    })();
+  }, [district]);
 
   // handle upozilla select
   const handleSelectUpozilla = async (s_upozilla) => {
@@ -133,10 +134,11 @@ function Dispatches() {
                 District
               </InputLabel>
               <Select
+                disabled={localStorage.getItem("mLevel") === "2"}
                 fullWidth
                 value={district}
                 sx={select_styles}
-                onChange={(e) => handleSelectDistrict(e.target.value)}
+                onChange={(e) => setDistrict(e.target.value)}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="District"
