@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./girls.module.css";
 import { methods } from "../../constants/methods";
 import { Box, Button } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Add, GroupAdd } from "@mui/icons-material";
 import { btn_styles } from "../../constants/btn_styles";
 import GirlsTable from "../../components/tableview/GirlsTable";
 import AddGirl from "../../components/girl-crud/AddGirl";
 import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
 import { centered } from "../../styles/centered";
+import AddAllGirls from "../../components/girl-crud/AddAllGirls";
 
 const GirlRegistration = () => {
   const [resultList, setResultList] = useState([]);
@@ -34,12 +35,21 @@ const GirlRegistration = () => {
   };
 
   const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
 
   return (
     <>
       <div className={styles.pageTitle}>Registered Girls</div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
+          <Button
+            startIcon={<GroupAdd />}
+            onClick={() => setOpen1(true)}
+            variant="contained"
+            sx={btn_styles}
+          >
+            <span>Register All</span>
+          </Button>
           <Button
             startIcon={<Add />}
             onClick={() => setOpen(true)}
@@ -61,6 +71,7 @@ const GirlRegistration = () => {
         <GirlsTable resultList={resultList} loadGirlList={loadGirlList} />
       )}
 
+      <AddAllGirls open={open1} setOpen={setOpen1} loadGirlList={loadGirlList} />
       <AddGirl open={open} setOpen={setOpen} loadGirlList={loadGirlList} />
 
       <div style={{ height: "6rem" }}></div>
