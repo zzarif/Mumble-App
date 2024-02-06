@@ -8,7 +8,6 @@ import GirlsTable from "../../components/tableview/GirlsTable";
 import AddGirl from "../../components/girl-crud/AddGirl";
 import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
 import { centered } from "../../styles/centered";
-import AddAllGirls from "../../components/girl-crud/AddAllGirls";
 
 const GirlRegistration = () => {
   const [resultList, setResultList] = useState([]);
@@ -43,14 +42,6 @@ const GirlRegistration = () => {
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
           <Button
-            startIcon={<GroupAdd />}
-            onClick={() => setOpen1(true)}
-            variant="contained"
-            sx={btn_styles}
-          >
-            <span>Register All</span>
-          </Button>
-          <Button
             startIcon={<Add />}
             onClick={() => setOpen(true)}
             variant="contained"
@@ -71,7 +62,6 @@ const GirlRegistration = () => {
         <GirlsTable resultList={resultList} loadGirlList={loadGirlList} />
       )}
 
-      <AddAllGirls open={open1} setOpen={setOpen1} loadGirlList={loadGirlList} />
       <AddGirl open={open} setOpen={setOpen} loadGirlList={loadGirlList} />
 
       <div style={{ height: "6rem" }}></div>
