@@ -21,6 +21,7 @@ import { select_styles } from "../../constants/select_styles";
 import ReportsTable from "../../components/tableview/ReportsTable";
 import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
 import { centered } from "../../styles/centered";
+import DownloadReportsAsPDF from "../../components/pdf-manager/DownloadReportsAsPDF";
 
 function Reports() {
   // today date mm/dd/yyyy
@@ -102,7 +103,10 @@ function Reports() {
 
   return (
     <>
-      <div className={styles.pageTitle}>Reports</div>
+      <div className={styles.titleContainer}>
+        <div className={styles.pageTitle}>Reports</div>
+        <DownloadReportsAsPDF />
+      </div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
           <div className={styles.rowContainer0}>

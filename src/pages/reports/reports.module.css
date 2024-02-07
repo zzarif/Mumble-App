@@ -1,9 +1,17 @@
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
 .pageTitle {
+  flex: 1;
   font-family: "Poppins";
   font-weight: bold;
   font-size: 2rem;
   color: #23232e;
-  margin-bottom: 1.5rem;
   display: flex;
   justify-content: center;
   font-weight: 900;
