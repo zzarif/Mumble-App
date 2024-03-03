@@ -36,7 +36,7 @@ function Reports() {
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
 
-  const [startDate, setStartDate] = useState(dayjs(today));
+  const [startDate, setStartDate] = useState(dayjs("01/01/2024"));
   const [endDate, setEndDate] = useState(dayjs(today));
   const [resultList, setResultList] = useState([]);
 
@@ -105,7 +105,7 @@ function Reports() {
     <>
       <div className={styles.titleContainer}>
         <div className={styles.pageTitle}>Reports</div>
-        <DownloadReportsAsPDF />
+        <DownloadReportsAsPDF district={district} upozilla={upozilla} startDate={startDate} endDate={endDate}/>
       </div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>

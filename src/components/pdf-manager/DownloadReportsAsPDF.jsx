@@ -5,7 +5,7 @@ import { Download } from "@mui/icons-material";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-function DownloadReportsAsPDF() {
+function DownloadReportsAsPDF({district,upozilla,startDate,endDate}) {
   // fetch all reports
   const [dlLoading, setDlLoading] = useState(false);
   const downloadReportsAsPDF = async () => {
@@ -13,10 +13,10 @@ function DownloadReportsAsPDF() {
     const url = new URL(
       import.meta.env.VITE_API_BASE_URL + "shopkeeper/report"
     );
-    url.searchParams.append("district", "");
-    url.searchParams.append("upzila", "");
-    url.searchParams.append("startDate", "");
-    url.searchParams.append("endDate", "");
+    url.searchParams.append("district", district);
+    url.searchParams.append("upzila", upozilla);
+    url.searchParams.append("startDate", startDate);
+    url.searchParams.append("endDate", endDate);
     await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
@@ -41,15 +41,13 @@ function DownloadReportsAsPDF() {
 
     doc.setFontSize(15);
 
-    const title = "Reports";
+    const title = `District: ${district?district:"N/A"}\tUpazilla: ${upozilla?upozilla:"N/A"}\tDate: ${getFormattedDate(startDate)} to ${getFormattedDate(endDate)}`;
     const headers = [
       [
         "Code",
         "Shopname",
         "Owner",
         "Phone",
-        "District",
-        "Upazilla",
         "Total Amount",
       ],
     ];
@@ -59,8 +57,6 @@ function DownloadReportsAsPDF() {
       item.shopname,
       item.name,
       item.phone,
-      item.district,
-      item.upzila,
       getTotal(item.Invcoices),
     ]);
 
@@ -81,6 +77,22 @@ function DownloadReportsAsPDF() {
     for (var i = 0; i < invoices.length; i++) total += invoices[i].grossamt;
     return total;
   };
+
+  // fotmat date
+  const getFormattedDate = (dateString) => {
+    const date = new Date(dateString);
+
+    const day = date.getUTCDate();
+    const month = date.getUTCMonth() + 1; // Months are zero-indexed, so we add 1
+    const year = date.getUTCFullYear();
+
+    // Padding single-digit day and month with leading zeros if necessary
+    const formattedDay = day < 10 ? "0" + day : day;
+    const formattedMonth = month < 10 ? "0" + month : month;
+
+    const formattedDate = `${formattedDay}/${formattedMonth}/${year}`;
+    return formattedDate;
+  }
 
   return (
     <LoadingButton

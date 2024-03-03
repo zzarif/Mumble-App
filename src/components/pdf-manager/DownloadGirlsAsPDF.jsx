@@ -55,7 +55,7 @@ function DownloadGirlsAsPDF({ district, upozilla }) {
 
     doc.text(title, marginLeft, 40);
     doc.autoTable(content);
-    doc.save("reports.pdf");
+    doc.save("girlslist.pdf");
   };
 
   return (
