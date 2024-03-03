@@ -18,9 +18,12 @@ function GirlsTable({ resultList, loadGirlList }) {
   const [code,setCode] = useState("");
   const [name,setName] = useState("");
   const [phone,setPhone] = useState("");
+  const [fatherName,setFatherName] = useState("");
+  const [motherName,setMotherName] = useState("");
   const [DOB, setDOB] = useState("");
   const [district,setDistrict] = useState("");
   const [upozilla,setUpozilla] = useState("");
+  const [union,setUnion] = useState("");
 
   const [open, setOpen] = useState(false);
 
@@ -46,6 +49,9 @@ function GirlsTable({ resultList, loadGirlList }) {
           <TableHead>
             <StyledTableRow>
               <StyledTableCell>
+                <b>Serial</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
                 <b>Code</b>
               </StyledTableCell>
               <StyledTableCell align="right">
@@ -61,30 +67,47 @@ function GirlsTable({ resultList, loadGirlList }) {
                 <b>Date of Birth</b>
               </StyledTableCell>
               <StyledTableCell align="right">
+                <b>Age</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <b>Father Name</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <b>Mother Name</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
                 <b>District</b>
               </StyledTableCell>
               <StyledTableCell align="right">
                 <b>Upazilla</b>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <b>Union</b>
               </StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {resultList.map((row) => (
+            {resultList.map((row,idx) => (
               <StyledTableRow
-                key={row.strGirlCode}
+                key={idx}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <StyledTableCell component="th" scope="row">
-                  {row.strGirlCode}
+                  {idx+1}
                 </StyledTableCell>
+                <StyledTableCell align="right">{row.strGirlCode}</StyledTableCell>
                 <StyledTableCell align="right">{row.strName}</StyledTableCell>
                 {/* <StyledTableCell align="right">{row.strEmail}</StyledTableCell> */}
                 <StyledTableCell align="right">{row.strPhone}</StyledTableCell>
                 <StyledTableCell align="right">{new Date(row.strDOB).toISOString().replace(/T.*/g,'')}</StyledTableCell>
+                <StyledTableCell align="right">{row.nAge?row.nAge:"--"}</StyledTableCell>
+                <StyledTableCell align="right">{row.father?row.father:"--"}</StyledTableCell>
+                <StyledTableCell align="right">{row.mother?row.mother:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.strDistrict}</StyledTableCell>
                 <StyledTableCell align="right">{row.strSubLocation}</StyledTableCell>
+                <StyledTableCell align="right">{row.strUnion?row.strUnion:"--"}</StyledTableCell>
                 <StyledTableCell align="right">
                   <IconButton 
                     edge="end" 
@@ -93,9 +116,12 @@ function GirlsTable({ resultList, loadGirlList }) {
                       setCode(row.strGirlCode);
                       setName(row.strName);
                       setPhone(row.strPhone);
+                      setFatherName(row.father?row.father:"");
+                      setMotherName(row.mother?row.mother:"");
                       setDOB(row.strDOB);
                       setDistrict(row.strDistrict);
                       setUpozilla(row.strSubLocation);
+                      setUnion(row.strUnion?row.strUnion:"");
                       setOpen(true);
                     }}
                     >
@@ -124,12 +150,18 @@ function GirlsTable({ resultList, loadGirlList }) {
         setName={setName}
         phone={phone}
         setPhone={setPhone}
+        fatherName={fatherName}
+        setFatherName={setFatherName}
+        motherName={motherName}
+        setMotherName={setMotherName}
         DOB={DOB}
         setDOB={setDOB}
         district={district}
         setDistrict={setDistrict}
         upozilla={upozilla}
         setUpozilla={setUpozilla}
+        union={union}
+        setUnion={setUnion}
         loadGirlList={loadGirlList}
       />
     </>

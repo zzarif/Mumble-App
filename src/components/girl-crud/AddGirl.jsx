@@ -32,9 +32,13 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
   const [district, setDistrict] = useState("");
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
+  const [unionList, setUnionList] = useState([{"union":"Anderchar"},{"union":"Binodpur"},{"union":"Char Matua"},{"union":"Dadpur"},{"union":"Dharmapur"}]);
+  const [union,setUnion] = useState("");
 
   const [name,setName] = useState("");
   const [phone,setPhone] = useState("");
+  const [fatherName,setFatherName] = useState("");
+  const [motherName,setMotherName] = useState("");
 
   useEffect(() => {
     handleSelectDistrict();
@@ -69,7 +73,12 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
           strPhone: phone,
           strDistrict: district,
           strSubLocation: upozilla,
-          strDOB: DOB
+          strUnion : union,
+          strDOB: DOB,
+          father: fatherName,
+          mother: motherName,
+          code: null,
+          active: false
         })
       }).then((res) => {
         if(res.ok) {
@@ -167,6 +176,28 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                     }
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="father"
+                    label="Father Name"
+                    name="father"
+                    value={fatherName}
+                    onChange={(e) => setFatherName(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="mother"
+                    label="Mother Name"
+                    name="mother"
+                    value={motherName}
+                    onChange={(e) => setMotherName(e.target.value)}
+                  />
+                </Grid>
 
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -227,6 +258,30 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
                     </Select>
                   </FormControl>
                 </Grid>
+                {district === "Noakhali" && (
+                  <Grid item xs={12}>
+                    <FormControl sx={{ minWidth: "100%" }}>
+                    <InputLabel id="demo-simple-select-helper-label">
+                      Union *
+                    </InputLabel>
+                    <Select
+                      fullWidth
+                      value={union}
+                      onChange={(e) => setUnion(e.target.value)}
+                      labelId="demo-simple-select-helper-label"
+                      id="demo-simple-select-helper"
+                      label="Union"
+                    >
+                      <MenuItem value="">
+                        <em>Select</em>
+                      </MenuItem>
+                      {unionList.map((obj,idx) => (
+                        <MenuItem key={idx} value={obj.union}>{obj.union}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                )}
               </Grid>
               <LoadingButton
                 type="submit"
