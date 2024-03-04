@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import PreviewDispatch from '../dispatch-preview/PreviewDispatch';
 import { StyledTableCell, StyledTableRow} from "../../styles/table_styles";
 
-function DispatchTable({ resultList, totalAmount }) {
+function DispatchTableNoakhali({ resultList }) {
   // preview controller
   const [open,setOpen] = useState(false);
   
@@ -30,14 +30,13 @@ function DispatchTable({ resultList, totalAmount }) {
               <StyledTableCell><b>Serial</b></StyledTableCell>
               <StyledTableCell align="right"><b>Receipt Number</b></StyledTableCell>
               <StyledTableCell align="right"><b>Date</b></StyledTableCell>
-              <StyledTableCell align="right"><b>Shopname</b></StyledTableCell>
-              <StyledTableCell align="right"><b>Shopkeeper</b></StyledTableCell>
+              <StyledTableCell align="right"><b>Staff</b></StyledTableCell>
+              <StyledTableCell align="right"><b>Designation</b></StyledTableCell>
               <StyledTableCell align="right"><b>District</b></StyledTableCell>
               <StyledTableCell align="right"><b>Upazilla</b></StyledTableCell>
               <StyledTableCell align="right"><b>Union</b></StyledTableCell>
               <StyledTableCell align="right"><b>Beneficiary Name</b></StyledTableCell>
               <StyledTableCell align="right"><b>Beneficiary Phone Number</b></StyledTableCell>
-              <StyledTableCell align="right"><b>Total Amount</b></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -52,34 +51,15 @@ function DispatchTable({ resultList, totalAmount }) {
                 </TableCell>
                 <StyledTableCell align="right">{row.ReceiptNumber}</StyledTableCell>
                 <StyledTableCell align="right">{new Date(row.Date).toLocaleString()}</StyledTableCell>
-                <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
+                <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.district}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.upzila}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.strUnion?row.ShopKeeper.strUnion:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.Girl?row.Girl.strName:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.Girl?row.Girl.strPhone:"--"}</StyledTableCell>
-                <StyledTableCell align="right">{row.grossamt}</StyledTableCell>
               </StyledTableRow>
             ))}
-            {totalAmount && (
-              <StyledTableRow
-                key={-1}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <StyledTableCell component="th" scope="row"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right"><b>Total: {totalAmount}</b></StyledTableCell>
-              </StyledTableRow>
-            )}
           </TableBody>
         </Table>
       </TableContainer>
@@ -88,4 +68,4 @@ function DispatchTable({ resultList, totalAmount }) {
   );
 }
 
-export default DispatchTable;
+export default DispatchTableNoakhali;

@@ -21,6 +21,7 @@ import DispatchTable from "../../components/tableview/DispatchTable";
 import { select_styles } from "../../constants/select_styles";
 import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
 import { centered } from "../../styles/centered";
+import DispatchTableNoakhali from "../../components/tableview/DispatchTableNoakhali";
 
 function Dispatches() {
   // today date mm/dd/yyyy
@@ -51,6 +52,11 @@ function Dispatches() {
     loadResultList();
   },[]);
 
+  // real time loading
+  useEffect(() => {
+    loadResultList();
+  },[district,upozilla,shopname,startDate,endDate]);
+
   // load result list given params
   const loadResultList = async () => {
     setLoading(true);
@@ -76,6 +82,8 @@ function Dispatches() {
   useEffect(() => {
     (async () => {
       setUpozilla("");
+      setShopname("");
+      setShopnameList([]);
       const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
       url.searchParams.append("district", district);
       await fetch(url, {
@@ -92,6 +100,7 @@ function Dispatches() {
   // handle upozilla select
   const handleSelectUpozilla = async (s_upozilla) => {
     setUpozilla(s_upozilla);
+    setShopname("");
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeepers");
     url.searchParams.append("upzila", s_upozilla);
     await fetch(url, {
@@ -158,7 +167,7 @@ function Dispatches() {
           <div className={styles.rowContainer1}>
             <FormControl sx={{ m: 1, minWidth: "100%" }}>
               <InputLabel id="demo-simple-select-helper-label">
-                Shopname
+                {district === "Noakhali"?"Staff":"Shopname"}
               </InputLabel>
               <Select
                 fullWidth
@@ -167,7 +176,7 @@ function Dispatches() {
                 onChange={(e) => setShopname(e.target.value)}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
-                label="Shopname"
+                label={district === "Noakhali"?"Staff":"Shopname"}
               >
                 <MenuItem value="">
                   <em>Select</em>
@@ -224,6 +233,8 @@ function Dispatches() {
           <FacebookCircularProgress />
         </Box>
       ) : (
+        district === "Noakhali" ? 
+        <DispatchTableNoakhali resultList={resultList} /> :
         <DispatchTable resultList={resultList} totalAmount={totalAmount} />
       )}
 
