@@ -27,7 +27,8 @@ function DispatchTable({ resultList, totalAmount }) {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell><b>Receipt Number</b></StyledTableCell>
+              <StyledTableCell><b>Serial</b></StyledTableCell>
+              <StyledTableCell align="right"><b>Receipt Number</b></StyledTableCell>
               <StyledTableCell align="right"><b>Date</b></StyledTableCell>
               <StyledTableCell align="right"><b>Shopname</b></StyledTableCell>
               <StyledTableCell align="right"><b>Shopkeeper</b></StyledTableCell>
@@ -39,15 +40,16 @@ function DispatchTable({ resultList, totalAmount }) {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {resultList.map((row) => (
+            {resultList.map((row,idx) => (
               <StyledTableRow
-                key={row.ReceiptNumber}
+                key={idx}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 onClick={() => handleRowClick(row)}
               >
                 <TableCell component="th" scope="row">
-                  {row.ReceiptNumber}
+                  {idx+1}
                 </TableCell>
+                <StyledTableCell align="right">{row.ReceiptNumber}</StyledTableCell>
                 <StyledTableCell align="right">{new Date(row.Date).toLocaleString()}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
@@ -64,6 +66,7 @@ function DispatchTable({ resultList, totalAmount }) {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <StyledTableCell component="th" scope="row"></StyledTableCell>
+                <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>

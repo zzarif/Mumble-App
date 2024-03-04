@@ -38,7 +38,7 @@ function Dispatches() {
   const [shopnameList, setShopnameList] = useState([]);
   const [shopname, setShopname] = useState("");
 
-  const [startDate, setStartDate] = useState(dayjs(today));
+  const [startDate, setStartDate] = useState(dayjs("01/01/2024"));
   const [endDate, setEndDate] = useState(dayjs(today));
   const [resultList, setResultList] = useState([]);
   const [totalAmount, setTotalAmount] = useState("");
@@ -48,26 +48,7 @@ function Dispatches() {
 
   // load all dispatch
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const url = new URL(import.meta.env.VITE_API_BASE_URL + "invoices/web");
-      url.searchParams.append("district", district);
-      url.searchParams.append("upzila", "");
-      url.searchParams.append("shopname", "");
-      url.searchParams.append("startDate", "");
-      url.searchParams.append("endDate", "");
-      await fetch(url, {
-        method: methods.GET,
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => res.json())
-        .then((obj) => {
-          setResultList(obj.result);
-          setTotalAmount(obj.total[0].totalAmount);
-        })
-        .catch((err) => alert(err))
-        .finally(() => setLoading(false));
-    })();
+    loadResultList();
   },[]);
 
   // load result list given params

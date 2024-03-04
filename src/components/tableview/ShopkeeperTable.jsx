@@ -45,6 +45,9 @@ function ShopkeeperTable({ resultList, setResultList }) {
         <TableHead>
           <StyledTableRow>
             <StyledTableCell>
+              <b>Serial</b>
+            </StyledTableCell>
+            <StyledTableCell align="right">
               <b>Code</b>
             </StyledTableCell>
             <StyledTableCell align="right">
@@ -74,8 +77,9 @@ function ShopkeeperTable({ resultList, setResultList }) {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <StyledTableCell component="th" scope="row">
-                {row.strShopKeeperCode}
+                {idx+1}
               </StyledTableCell>
+              <StyledTableCell align="right">{row.strShopKeeperCode}</StyledTableCell>
               <StyledTableCell align="right">{row.shopname}</StyledTableCell>
               <StyledTableCell align="right">{row.name}</StyledTableCell>
               <StyledTableCell align="right">{row.phone}</StyledTableCell>

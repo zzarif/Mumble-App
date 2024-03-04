@@ -45,24 +45,7 @@ function Reports() {
 
   // load all reports
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const url = new URL(import.meta.env.VITE_API_BASE_URL + "shopkeeper/report");
-      url.searchParams.append("district", district);
-      url.searchParams.append("upzila", "");
-      url.searchParams.append("startDate", "");
-      url.searchParams.append("endDate", "");
-      await fetch(url, {
-        method: methods.GET,
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => res.json())
-        .then((obj) => {
-          setResultList(obj.result);
-        })
-        .catch((err) => alert(err))
-        .finally(() => setLoading(false));
-    })();
+    loadResultList();
   },[]);
 
   // load result list given params

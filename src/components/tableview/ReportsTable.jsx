@@ -35,6 +35,9 @@ function ReportsTable({ resultList }) {
         <TableHead>
           <StyledTableRow>
             <StyledTableCell>
+              <b>Serial</b>
+            </StyledTableCell>
+            <StyledTableCell align="right">
               <b>Code</b>
             </StyledTableCell>
             <StyledTableCell align="right">
@@ -58,15 +61,16 @@ function ReportsTable({ resultList }) {
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {resultList.map((row) => (
+          {resultList.map((row,idx) => (
             <StyledTableRow
-              key={row.strShopKeeperCode}
+              key={idx}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               onClick={() => handleRowClick(row)}
             >
               <StyledTableCell component="th" scope="row">
-                {row.strShopKeeperCode}
+                {idx+1}
               </StyledTableCell>
+              <StyledTableCell align="right">{row.strShopKeeperCode}</StyledTableCell>
               <StyledTableCell align="right">{row.shopname}</StyledTableCell>
               <StyledTableCell align="right">{row.name}</StyledTableCell>
               <StyledTableCell align="right">{row.phone}</StyledTableCell>

@@ -43,6 +43,9 @@ function ItemsTable({ resultList, loadItemList }) {
           <TableHead>
             <StyledTableRow>
               <StyledTableCell>
+                <b>Serial</b>
+              </StyledTableCell>
+              <StyledTableCell>
                 <b>Name</b>
               </StyledTableCell>
               <StyledTableCell align="right">
@@ -62,8 +65,9 @@ function ItemsTable({ resultList, loadItemList }) {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {idx+1}
                 </StyledTableCell>
+                <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
                 <StyledTableCell align="right">{row.max}</StyledTableCell>
                 <StyledTableCell align="right">{row.price}</StyledTableCell>
                 <StyledTableCell align="right">
