@@ -42,6 +42,10 @@ function Shopkeeper() {
     loadResultList();
   },[]);
 
+  useEffect(() => {
+    loadResultList();
+  },[district,upozilla,status]);
+
   // load result list given params
   const loadResultList = async () => {
     setLoading(true);

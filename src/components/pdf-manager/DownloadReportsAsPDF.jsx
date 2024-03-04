@@ -41,7 +41,7 @@ function DownloadReportsAsPDF({district,upozilla,startDate,endDate}) {
 
     doc.setFontSize(15);
 
-    const title = `District: ${district?district:"N/A"}\tUpazilla: ${upozilla?upozilla:"N/A"}\tDate: ${getFormattedDate(startDate)} to ${getFormattedDate(endDate)}`;
+    const title = `District: ${district?district:"N.S."}\tUpazilla: ${upozilla?upozilla:"N.S."}\tDate: ${getFormattedDate(startDate)} to ${getFormattedDate(endDate)}`;
     const headers = [
       [
         "Code",

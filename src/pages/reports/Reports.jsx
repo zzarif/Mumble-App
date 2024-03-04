@@ -48,6 +48,11 @@ function Reports() {
     loadResultList();
   },[]);
 
+  // real time loading
+  useEffect(() => {
+    loadResultList();
+  },[district,upozilla,startDate,endDate]);
+
   // load result list given params
   const loadResultList = async () => {
     setLoading(true);
