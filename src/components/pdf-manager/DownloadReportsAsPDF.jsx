@@ -78,20 +78,16 @@ function DownloadReportsAsPDF({district,upozilla,startDate,endDate}) {
     return total;
   };
 
-  // fotmat date
+  // format date
   const getFormattedDate = (dateString) => {
-    const date = new Date(dateString);
-
-    const day = date.getUTCDate();
-    const month = date.getUTCMonth() + 1; // Months are zero-indexed, so we add 1
-    const year = date.getUTCFullYear();
-
-    // Padding single-digit day and month with leading zeros if necessary
-    const formattedDay = day < 10 ? "0" + day : day;
-    const formattedMonth = month < 10 ? "0" + month : month;
-
-    const formattedDate = `${formattedDay}/${formattedMonth}/${year}`;
-    return formattedDate;
+    const today = new Date(dateString);
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    const formattedToday = dd + '/' + mm + '/' + yyyy;
+    return formattedToday;
   }
 
   return (
