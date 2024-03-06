@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./girls.module.css";
 import { methods } from "../../constants/methods";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { Add, GroupAdd, Search } from "@mui/icons-material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Add, Menu, QrCode, Search } from "@mui/icons-material";
 import { btn_styles } from "../../constants/btn_styles";
 import GirlsTable from "../../components/tableview/GirlsTable";
 import AddGirl from "../../components/girl-crud/AddGirl";
@@ -13,6 +13,7 @@ import DownloadGirlsAsPDF from "../../components/pdf-manager/DownloadGirlsAsPDF"
 import { btn_styles2 } from "../../constants/btn_styles2";
 import { LoadingButton } from "@mui/lab";
 import { select_styles } from "../../constants/select_styles";
+import GirlQRView from "../../components/tableview/GirlQRView";
 
 const GirlRegistration = () => {
   const [district, setDistrict] = useState(localStorage.getItem("mLevel") === "2"?localStorage.getItem("mDistrict"):"");
@@ -64,12 +65,15 @@ const GirlRegistration = () => {
   };
 
   const [open, setOpen] = useState(false);
+  // toggle view
+  const [toggle,setToggle] = useState(true);
+  const handleToggle = () => setToggle(!toggle);
 
   return (
     <>
       <div className={styles.titleContainer}>
         <div className={styles.pageTitle}>Registered Girls</div>
-        <DownloadGirlsAsPDF district={district} upozilla={upozilla}/>
+        <DownloadGirlsAsPDF toggle={toggle} setToggle={setToggle}/>
       </div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
@@ -140,6 +144,19 @@ const GirlRegistration = () => {
               <span>Register Girl</span>
             </Button>
           </div>
+          <ToggleButtonGroup
+              value={toggle?"tableview":"qrview"}
+              exclusive
+              onChange={handleToggle}
+              aria-label="View"
+            >
+              <ToggleButton value="tableview" aria-label="Table View">
+                <Menu />
+              </ToggleButton>
+              <ToggleButton value="qrview" aria-label="QR View">
+                <QrCode />
+              </ToggleButton>
+            </ToggleButtonGroup>
         </div>
       </div>
       {/* <div className={styles.pageTitle}>Registered Girls</div>
@@ -163,7 +180,9 @@ const GirlRegistration = () => {
           <FacebookCircularProgress />
         </Box>
       ) : (
-        <GirlsTable resultList={resultList} loadGirlList={loadGirlList} />
+        toggle?
+          <GirlsTable resultList={resultList} loadGirlList={loadGirlList} /> :
+          <GirlQRView resultList={resultList} />
       )}
 
       <AddGirl open={open} setOpen={setOpen} loadGirlList={loadGirlList} />
