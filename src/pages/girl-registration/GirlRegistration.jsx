@@ -21,13 +21,13 @@ const GirlRegistration = () => {
   const [upozilla, setUpozilla] = useState("");
   const [resultList, setResultList] = useState([]);
 
-  useEffect(() => {
-    loadGirlList();
-  }, []);
+  // useEffect(() => {
+  //   loadGirlList();
+  // }, []);
 
-  useEffect(() => {
-    loadGirlList();
-  }, [district,upozilla]);
+  // useEffect(() => {
+  //   loadGirlList();
+  // }, [district,upozilla]);
 
   useEffect(() => {
     (async () => {
