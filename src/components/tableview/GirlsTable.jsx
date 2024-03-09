@@ -51,7 +51,7 @@ function GirlsTable({ resultList, loadGirlList }) {
               <StyledTableCell>
                 <b>Serial</b>
               </StyledTableCell>
-              <StyledTableCell align="right">
+              <StyledTableCell>
                 <b>Code</b>
               </StyledTableCell>
               <StyledTableCell align="right">
@@ -97,7 +97,7 @@ function GirlsTable({ resultList, loadGirlList }) {
                 <StyledTableCell component="th" scope="row">
                   {idx+1}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.strGirlCode}</StyledTableCell>
+                <StyledTableCell>{row.strGirlCode}</StyledTableCell>
                 <StyledTableCell align="right">{row.strName}</StyledTableCell>
                 {/* <StyledTableCell align="right">{row.strEmail}</StyledTableCell> */}
                 <StyledTableCell align="right">{row.strPhone}</StyledTableCell>

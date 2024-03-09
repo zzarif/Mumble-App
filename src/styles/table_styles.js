@@ -8,10 +8,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       fontFamily: "Poppins",
       backgroundColor: "#2f2f3d",
       color: theme.palette.common.white,
+      whiteSpace: "nowrap"
     },
     [`&.${tableCellClasses.body}`]: {
       fontSize: "0.8rem",
       fontFamily: "Inter",
+      whiteSpace: "nowrap"
     },
   }));
   
