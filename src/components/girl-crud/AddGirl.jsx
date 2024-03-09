@@ -32,7 +32,7 @@ export default function AddGirl({ open, setOpen, loadGirlList }) {
   const [district, setDistrict] = useState("");
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
-  const [unionList, setUnionList] = useState([{"union":"01 No. Charamatua UP"},{"union":"03 No. Noyannai UP"},{"union":"06 Noakhali UP"},{"union":"No. 10 Ashwadia UP"},{"union":"No. 20 Underchar UP"}]);
+  const [unionList, setUnionList] = useState([{"union":"Noakhali"},{"union":"Ashwadia"},{"union":"Noannoi"},{"union":"Char Matua"},{"union":"Anderchar"}]);
   const [union,setUnion] = useState("");
 
   const [name,setName] = useState("");
