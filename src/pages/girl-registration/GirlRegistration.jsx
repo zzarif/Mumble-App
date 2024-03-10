@@ -14,6 +14,7 @@ import { btn_styles2 } from "../../constants/btn_styles2";
 import { LoadingButton } from "@mui/lab";
 import { select_styles } from "../../constants/select_styles";
 import GirlQRView from "../../components/tableview/GirlQRView";
+import Footer from "../../components/footer/Footer";
 
 const GirlRegistration = () => {
   const [district, setDistrict] = useState(localStorage.getItem("mLevel") === "2"?localStorage.getItem("mDistrict"):"");
@@ -187,6 +188,8 @@ const GirlRegistration = () => {
 
       <AddGirl open={open} setOpen={setOpen} loadGirlList={loadGirlList} />
 
+      {resultList.length === 0 && <Footer position={"fixed"} />}
+      
       <div style={{ height: "6rem" }}></div>
     </>
   );

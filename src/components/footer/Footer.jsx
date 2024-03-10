@@ -1,36 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import unfpa_hdma from "/footer/unfpa_hdma.jpg";
 
-function Footer() {
-  const [isPageOverflowing, setIsPageOverflowing] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Check if the page is scrolled to the very bottom
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        setIsPageOverflowing(false);
-      } else {
-        setIsPageOverflowing(true);
-      }
-    };
-
-    // Initial check
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+function Footer({ position }) {
   return (
     <div
       style={{
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        position: isPageOverflowing ? "relative" : "fixed",
+        position: position,
+        marginTop: "3rem",
         bottom: "10px",
         right: "10px",
       }}

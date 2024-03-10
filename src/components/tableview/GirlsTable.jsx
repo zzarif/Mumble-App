@@ -12,6 +12,7 @@ import {
 } from "@mui/icons-material";
 import UpdateGirl from "../girl-crud/UpdateGirl";
 import { StyledTableCell, StyledTableRow} from "../../styles/table_styles";
+import Footer from "../footer/Footer";
 
 function GirlsTable({ resultList, loadGirlList }) {
   // selected fields
@@ -164,6 +165,7 @@ function GirlsTable({ resultList, loadGirlList }) {
         setUnion={setUnion}
         loadGirlList={loadGirlList}
       />
+      {resultList.length > 5 && <Footer position={"relative"} />}
     </>
   );
 }
