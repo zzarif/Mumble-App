@@ -14,7 +14,7 @@ function GirlQRView({ resultList }) {
       >
         {resultList.map(
           (row, idx) =>
-            idx < 50 && (
+            idx < 100 && (
               <div
                 key={idx}
                 style={{
