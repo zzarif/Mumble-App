@@ -27,6 +27,7 @@ function Footer() {
   return (
     <div
       style={{
+        width: "100%",
         display: "flex",
         justifyContent: "center",
         position: isPageOverflowing ? "relative" : "fixed",

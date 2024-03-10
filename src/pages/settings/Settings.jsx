@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { btn_styles } from "../../constants/btn_styles";
 import { urls } from "../../constants/urls";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/footer/Footer";
 
 function Settings() {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ function Settings() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
