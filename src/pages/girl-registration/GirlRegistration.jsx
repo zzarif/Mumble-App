@@ -13,8 +13,8 @@ import DownloadGirlsAsPDF from "../../components/pdf-manager/DownloadGirlsAsPDF"
 import { btn_styles2 } from "../../constants/btn_styles2";
 import { LoadingButton } from "@mui/lab";
 import { select_styles } from "../../constants/select_styles";
-import GirlQRView from "../../components/tableview/GirlQRView";
 import Footer from "../../components/footer/Footer";
+import UploadGirlsAsPDF from "../../components/pdf-manager/UploadGirlsAsPDF";
 
 const GirlRegistration = () => {
   const [district, setDistrict] = useState(localStorage.getItem("mLevel") === "2"?localStorage.getItem("mDistrict"):"");
@@ -66,15 +66,12 @@ const GirlRegistration = () => {
   };
 
   const [open, setOpen] = useState(false);
-  // toggle view
-  const [toggle,setToggle] = useState(true);
-  const handleToggle = () => setToggle(!toggle);
 
   return (
     <>
       <div className={styles.titleContainer}>
         <div className={styles.pageTitle}>Registered Girls</div>
-        <DownloadGirlsAsPDF toggle={toggle} setToggle={setToggle}/>
+        <DownloadGirlsAsPDF resultList={resultList}/>
       </div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
@@ -144,35 +141,10 @@ const GirlRegistration = () => {
             >
               <span>Register Girl</span>
             </Button>
+            <UploadGirlsAsPDF />
           </div>
-          <ToggleButtonGroup
-              value={toggle?"tableview":"qrview"}
-              exclusive
-              onChange={handleToggle}
-              aria-label="View"
-            >
-              <ToggleButton value="tableview" aria-label="Table View">
-                <Menu />
-              </ToggleButton>
-              <ToggleButton value="qrview" aria-label="QR View">
-                <QrCode />
-              </ToggleButton>
-            </ToggleButtonGroup>
         </div>
       </div>
-      {/* <div className={styles.pageTitle}>Registered Girls</div>
-      <div className={styles.bigContainer}>
-        <div className={styles.colContainer}>
-          <Button
-            startIcon={<Add />}
-            onClick={() => setOpen(true)}
-            variant="contained"
-            sx={btn_styles}
-          >
-            <span>Register Girl</span>
-          </Button>
-        </div>
-      </div> */}
 
       <div style={{ height: "1rem" }}></div>
 
@@ -181,9 +153,7 @@ const GirlRegistration = () => {
           <FacebookCircularProgress />
         </Box>
       ) : (
-        toggle?
-          <GirlsTable resultList={resultList} loadGirlList={loadGirlList} /> :
-          <GirlQRView resultList={resultList} />
+          <GirlsTable resultList={resultList} loadGirlList={loadGirlList} /> 
       )}
 
       <AddGirl open={open} setOpen={setOpen} loadGirlList={loadGirlList} />
