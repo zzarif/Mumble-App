@@ -15,28 +15,25 @@ function UploadGirlsAsPDF() {
   // submit function
   const submitExcel = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      if (alert("Bulk registration successful.")) window.location.reload();
-    }, 1500);
-
-    // add new image qr
-    // const formData = new FormData();
-    // formData.append("file", file);
-    // const url = new URL(import.meta.env.VITE_API_BASE_URL + "item/updateImage");
-    // await fetch(url, {
-    //   method: methods.PUT,
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((obj) => {
-    //     if (obj.status !== 200) {
-    //       alert("File upload error.");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert("File upload error.");
-    //   });
+    const formData = new FormData();
+    formData.append("file", file);
+    const url = new URL(import.meta.env.VITE_API_BASE_URL + "excel");
+    await fetch(url, {
+      method: methods.POST,
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((obj) => {
+        if (obj.status === 200) {
+          alert("Bulk registration successful.");
+          setFile(null);
+          setOpen(false);
+        } else alert("File upload error.");
+      })
+      .catch((err) => {
+        alert("File upload error.");
+      })
+      .finally(() => setLoading(false));
   };
 
   const [open, setOpen] = useState(false);
