@@ -182,7 +182,7 @@ function Dispatches() {
                   <em>Select</em>
                 </MenuItem>
                 {shopnameList.map((obj,idx) => (
-                  <MenuItem key={idx} value={obj.shopname}>{obj.shopname}</MenuItem>
+                  <MenuItem key={idx} value={obj.shopname}>{obj.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
