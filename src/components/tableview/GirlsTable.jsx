@@ -52,10 +52,10 @@ function GirlsTable({ resultList, loadGirlList }) {
               <StyledTableCell>
                 <b>Serial</b>
               </StyledTableCell>
-              <StyledTableCell>
+              {/* <StyledTableCell>
                 <b>Code</b>
-              </StyledTableCell>
-              <StyledTableCell align="right">
+              </StyledTableCell> */}
+              <StyledTableCell >
                 <b>Name</b>
               </StyledTableCell>
               {/* <StyledTableCell align="right">
@@ -98,8 +98,8 @@ function GirlsTable({ resultList, loadGirlList }) {
                 <StyledTableCell component="th" scope="row">
                   {idx+1}
                 </StyledTableCell>
-                <StyledTableCell>{row.strGirlCode}</StyledTableCell>
-                <StyledTableCell align="right">{row.strName}</StyledTableCell>
+                {/* <StyledTableCell>{row.strGirlCode}</StyledTableCell> */}
+                <StyledTableCell >{row.strName}</StyledTableCell>
                 {/* <StyledTableCell align="right">{row.strEmail}</StyledTableCell> */}
                 <StyledTableCell align="right">{row.strPhone}</StyledTableCell>
                 <StyledTableCell align="right">{new Date(row.strDOB).toISOString().replace(/T.*/g,'')}</StyledTableCell>

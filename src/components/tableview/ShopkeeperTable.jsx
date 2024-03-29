@@ -47,14 +47,14 @@ function ShopkeeperTable({ resultList, setResultList }) {
             <StyledTableCell>
               <b>Serial</b>
             </StyledTableCell>
-            <StyledTableCell align="right">
+            {/* <StyledTableCell align="right">
               <b>Code</b>
+            </StyledTableCell> */}
+            <StyledTableCell align="right">
+              <b>Shopname / Designation</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Shopname</b>
-            </StyledTableCell>
-            <StyledTableCell align="right">
-              <b>Owner</b>
+              <b>Shopowner / Staff</b>
             </StyledTableCell>
             <StyledTableCell align="right">
               <b>Phone</b>
@@ -79,7 +79,7 @@ function ShopkeeperTable({ resultList, setResultList }) {
               <StyledTableCell component="th" scope="row">
                 {idx+1}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.strShopKeeperCode}</StyledTableCell>
+              {/* <StyledTableCell align="right">{row.strShopKeeperCode}</StyledTableCell> */}
               <StyledTableCell align="right">{row.shopname}</StyledTableCell>
               <StyledTableCell align="right">{row.name}</StyledTableCell>
               <StyledTableCell align="right">{row.phone}</StyledTableCell>

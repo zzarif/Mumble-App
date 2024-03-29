@@ -37,9 +37,9 @@ function ReportsTable({ resultList }) {
             <StyledTableCell>
               <b>Serial</b>
             </StyledTableCell>
-            <StyledTableCell align="right">
+            {/* <StyledTableCell align="right">
               <b>Code</b>
-            </StyledTableCell>
+            </StyledTableCell> */}
             <StyledTableCell align="right">
               <b>Shopname</b>
             </StyledTableCell>
@@ -70,7 +70,7 @@ function ReportsTable({ resultList }) {
               <StyledTableCell component="th" scope="row">
                 {idx+1}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.strShopKeeperCode}</StyledTableCell>
+              {/* <StyledTableCell align="right">{row.strShopKeeperCode}</StyledTableCell> */}
               <StyledTableCell align="right">{row.shopname}</StyledTableCell>
               <StyledTableCell align="right">{row.name}</StyledTableCell>
               <StyledTableCell align="right">{row.phone}</StyledTableCell>
