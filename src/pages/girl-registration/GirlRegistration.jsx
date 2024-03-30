@@ -20,6 +20,8 @@ const GirlRegistration = () => {
   const [district, setDistrict] = useState(localStorage.getItem("mLevel") === "2"?localStorage.getItem("mDistrict"):"");
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
+  const [unionList, setUnionList] = useState([{"union":"Noakhali"},{"union":"Ashwadia"},{"union":"Noannoi"},{"union":"Char Matua"},{"union":"Anderchar"}]);
+  const [union,setUnion] = useState("");
   const [resultList, setResultList] = useState([]);
 
   // useEffect(() => {
@@ -33,6 +35,7 @@ const GirlRegistration = () => {
   useEffect(() => {
     (async () => {
       setUpozilla("");
+      setUnion("");
       const url = new URL(import.meta.env.VITE_API_BASE_URL + "districts");
       url.searchParams.append("district", district);
       await fetch(url, {
@@ -53,6 +56,7 @@ const GirlRegistration = () => {
     const url = new URL(import.meta.env.VITE_API_BASE_URL + "girls");
     url.searchParams.append("district",district);
     url.searchParams.append("strSubLocation",upozilla);
+    if(district === "Noakhali") url.searchParams.append("strUnion",union);
     await fetch(url, {
       method: methods.GET,
       headers: { "Content-Type": "application/json" },
@@ -76,7 +80,7 @@ const GirlRegistration = () => {
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
           <div className={styles.rowContainer0}>
-            <FormControl sx={{ m: 1, minWidth: "46%" }}>
+            <FormControl sx={{ m: 1, minWidth: district === "Noakhali"?"30%":"46%" }}>
               <InputLabel id="demo-simple-select-helper-label">
                 District
               </InputLabel>
@@ -99,7 +103,7 @@ const GirlRegistration = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ m: 1, minWidth: "46%" }}>
+            <FormControl sx={{ m: 1, minWidth: district === "Noakhali"?"30%":"46%" }}>
               <InputLabel id="demo-simple-select-helper-label">
                 Upazilla
               </InputLabel>
@@ -120,6 +124,29 @@ const GirlRegistration = () => {
                 ))}
               </Select>
             </FormControl>
+
+            {district === "Noakhali" && 
+            <FormControl sx={{ m: 1, minWidth: "30%" }}>
+              <InputLabel id="demo-simple-select-helper-label">
+                Union
+              </InputLabel>
+              <Select
+                fullWidth
+                value={union}
+                sx={select_styles}
+                onChange={(e) => setUnion(e.target.value)}
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="Union"
+              >
+                <MenuItem value="">
+                  <em>Select</em>
+                </MenuItem>
+                {unionList.map((obj,idx) => (
+                  <MenuItem key={idx} value={obj.union}>{obj.union}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>}
           </div>
           
           <div className={styles.rowContainer0}>
