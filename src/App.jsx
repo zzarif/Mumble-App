@@ -15,6 +15,7 @@ import Items from "./pages/items/Items";
 import GirlRegistration from "./pages/girl-registration/GirlRegistration";
 import Reports from "./pages/reports/Reports";
 import UserList from "./pages/user-list/UserList";
+import DownloadGirlsAsPDF from "./pages/download-pdf/DownloadGirlsAsPDF";
 
 function App() {
   useEffect(() => {
@@ -33,6 +34,7 @@ function App() {
             <Route path={urls.ITEMS} element={<Navbar><Items/></Navbar>} />
             <Route path={urls.USER_LIST} element={<Navbar><UserList/></Navbar>} />
             <Route path={urls.SETTINGS} element={<Navbar><Settings/></Navbar>} />
+            <Route path={urls.DOWNLOAD_PDF} element={<DownloadGirlsAsPDF/>} />
           </Route>
         </Routes>
     </HashRouter>

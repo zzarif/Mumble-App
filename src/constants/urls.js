@@ -8,4 +8,5 @@ export const urls = {
     ITEMS: "items",
     USER_LIST: "co-ordinators",
     SETTINGS: "settings",
+    DOWNLOAD_PDF: "download-pdf",
 }

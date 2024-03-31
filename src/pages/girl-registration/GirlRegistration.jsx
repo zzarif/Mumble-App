@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styles from "./girls.module.css";
 import { methods } from "../../constants/methods";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { Add, Menu, QrCode, Search } from "@mui/icons-material";
-import { btn_styles } from "../../constants/btn_styles";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Add, Download, Search } from "@mui/icons-material";
 import GirlsTable from "../../components/tableview/GirlsTable";
 import AddGirl from "../../components/girl-crud/AddGirl";
 import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
 import { centered } from "../../styles/centered";
 import districtList from "../../constants/districtList.json";
-import DownloadGirlsAsPDF from "../../components/pdf-manager/DownloadGirlsAsPDF";
 import { btn_styles2 } from "../../constants/btn_styles2";
 import { LoadingButton } from "@mui/lab";
 import { select_styles } from "../../constants/select_styles";
 import Footer from "../../components/footer/Footer";
 import UploadGirlsAsPDF from "../../components/pdf-manager/UploadGirlsAsPDF";
+import { urls } from "../../constants/urls";
+import { useNavigate } from "react-router-dom";
 
 const GirlRegistration = () => {
   const [district, setDistrict] = useState(localStorage.getItem("mLevel") === "2"?localStorage.getItem("mDistrict"):"");
@@ -70,12 +70,30 @@ const GirlRegistration = () => {
   };
 
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
       <div className={styles.titleContainer}>
         <div className={styles.pageTitle}>Registered Girls</div>
-        <DownloadGirlsAsPDF resultList={resultList}/>
+        <Button
+          startIcon={<Download />}
+          onClick={() => {
+            if (resultList.length > 0) {
+              navigate("/" + urls.DOWNLOAD_PDF, {
+                state: { resultList },
+              });
+            }
+            else alert("Please select some data to download.");
+          }}
+          variant="contained"
+          sx={{
+            fontFamily: "Poppins",
+            textTransform: "none",
+          }}
+        >
+          <span>Download PDF</span>
+        </Button>
       </div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
