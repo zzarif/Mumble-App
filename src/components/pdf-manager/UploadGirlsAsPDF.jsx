@@ -5,9 +5,9 @@ import ModalClose from "@mui/joy/ModalClose";
 import Sheet from "@mui/joy/Sheet";
 import { Close, FileCopy, Image, Upload } from "@mui/icons-material";
 import { Box, Button, IconButton, Typography } from "@mui/material";
-import { downloadBtn } from "../../constants/downloadBtn";
 import { btn_styles2 } from "../../constants/btn_styles2";
 import { methods } from "../../constants/methods";
+import { downloadBtn2 } from "../../constants/downloadBtn2";
 
 function UploadGirlsAsPDF() {
   // button loading
@@ -26,14 +26,16 @@ function UploadGirlsAsPDF() {
       .then((obj) => {
         if (obj.status === 200) {
           alert("Bulk registration successful.");
-          setFile(null);
           setOpen(false);
-        } else alert("File upload error.");
+        } else alert(obj.error);
       })
       .catch((err) => {
-        alert("File upload error.");
+        alert("Bulk registration processed.");
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setFile(null);
+        setLoading(false);
+      });
   };
 
   const [open, setOpen] = useState(false);
@@ -108,7 +110,7 @@ function UploadGirlsAsPDF() {
                 startIcon={<Upload />}
                 onClick={submitExcel}
                 variant="contained"
-                sx={downloadBtn}
+                sx={downloadBtn2}
               >
                 <span>Submit File</span>
               </LoadingButton>
@@ -117,7 +119,7 @@ function UploadGirlsAsPDF() {
                 variant="contained"
                 component="label"
                 startIcon={<FileCopy />}
-                sx={downloadBtn}
+                sx={downloadBtn2}
               >
                 Select File
                 <input
