@@ -1,5 +1,5 @@
 import React from "react";
-import unfpa_hdma from "/footer/unfpa_hdma.jpg";
+import unfpa_hdma from "/footer/unfpa_hdma1.jpg";
 
 function Footer({ position }) {
   return (
