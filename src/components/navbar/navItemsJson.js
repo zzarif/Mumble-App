@@ -19,8 +19,8 @@ export const navItems = [
     },
     {
         "id": 3,
-        "title": "Shopkeeper",
-        "path": "#/shopkeeper",
+        "title": "Distributors",
+        "path": "#/distributors",
         "imageLink": "/navbar/add-product.png"
     },
     {

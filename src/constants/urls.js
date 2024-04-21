@@ -2,7 +2,7 @@ export const urls = {
     DOMAIN: "",
     LANDING_PAGE: "/",
     GIRL_REGISTRATION: "registration",
-    SHOPNAME: "shopkeeper",
+    SHOPNAME: "distributors",
     REPORTS: "reports",
     DISTRICT: "dispatches",
     ITEMS: "items",

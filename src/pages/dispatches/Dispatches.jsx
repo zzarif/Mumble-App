@@ -167,7 +167,7 @@ function Dispatches() {
           <div className={styles.rowContainer1}>
             <FormControl sx={{ m: 1, minWidth: "100%" }}>
               <InputLabel id="demo-simple-select-helper-label">
-                {district === "Noakhali"?"Staff":"Shopname"}
+                {district === "Noakhali"?"Staff":"Distribution Point"}
               </InputLabel>
               <Select
                 fullWidth
@@ -176,7 +176,7 @@ function Dispatches() {
                 onChange={(e) => setShopname(e.target.value)}
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
-                label={district === "Noakhali"?"Staff":"Shopname"}
+                label={district === "Noakhali"?"Staff":"Distribution Point"}
               >
                 <MenuItem value="">
                   <em>Select</em>

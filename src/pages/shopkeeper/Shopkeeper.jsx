@@ -83,7 +83,7 @@ function Shopkeeper() {
 
   return (
     <>
-      <div className={styles.pageTitle}>Shopkeeper Management</div>
+      <div className={styles.pageTitle}>Distributor Management</div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
           <div className={styles.rowContainer0}>

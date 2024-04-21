@@ -51,10 +51,10 @@ function ShopkeeperTable({ resultList, setResultList }) {
               <b>Code</b>
             </StyledTableCell> */}
             <StyledTableCell align="right">
-              <b>Shopname / Designation</b>
+              <b>Distribution Point / Designation</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Shopowner / Staff</b>
+              <b>Distributor Name / Staff</b>
             </StyledTableCell>
             <StyledTableCell align="right">
               <b>Phone</b>

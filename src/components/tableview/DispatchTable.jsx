@@ -30,8 +30,8 @@ function DispatchTable({ resultList, totalAmount }) {
               <StyledTableCell><b>Serial</b></StyledTableCell>
               <StyledTableCell align="right"><b>Receipt Number</b></StyledTableCell>
               <StyledTableCell align="right"><b>Date</b></StyledTableCell>
-              <StyledTableCell align="right"><b>Shopname</b></StyledTableCell>
-              <StyledTableCell align="right"><b>Shopkeeper</b></StyledTableCell>
+              <StyledTableCell align="right"><b>Distribution Point</b></StyledTableCell>
+              <StyledTableCell align="right"><b>Distributor Name</b></StyledTableCell>
               <StyledTableCell align="right"><b>District</b></StyledTableCell>
               <StyledTableCell align="right"><b>Upazilla</b></StyledTableCell>
               <StyledTableCell align="right"><b>Union</b></StyledTableCell>

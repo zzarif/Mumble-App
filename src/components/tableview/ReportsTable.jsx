@@ -41,10 +41,10 @@ function ReportsTable({ resultList }) {
               <b>Code</b>
             </StyledTableCell> */}
             <StyledTableCell align="right">
-              <b>Shopname</b>
+              <b>Distribution Point</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Owner</b>
+              <b>Distributor Name</b>
             </StyledTableCell>
             <StyledTableCell align="right">
               <b>Phone</b>
