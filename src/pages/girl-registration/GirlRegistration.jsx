@@ -20,7 +20,17 @@ const GirlRegistration = () => {
   const [district, setDistrict] = useState(localStorage.getItem("mLevel") === "2"?localStorage.getItem("mDistrict"):"");
   const [upozillaList, setUpozillaList] = useState([]);
   const [upozilla, setUpozilla] = useState("");
-  const [unionList, setUnionList] = useState([{"union":"Noakhali"},{"union":"Ashwadia"},{"union":"Noannoi"},{"union":"Char Matua"},{"union":"Anderchar"}]);
+  const [unionList, setUnionList] = useState([
+    {"union": "Anderchar"},
+    {"union": "Ashwadia"},
+    {"union": "Char Matua"},
+    {"union": "Dharmapur"},
+    {"union": "Ewazbalia"},
+    {"union": "Kaladaraf"},
+    {"union": "Niazpur"},
+    {"union": "Noakhali"},
+    {"union": "Noannai"}
+  ]);
   const [union,setUnion] = useState("");
   const [resultList, setResultList] = useState([]);
 
