@@ -44,7 +44,7 @@ function ReportsTable({ resultList }) {
               <b>Distribution Point</b>
             </StyledTableCell>
             <StyledTableCell align="right">
-              <b>Distributor Name</b>
+              <b>Distributor</b>
             </StyledTableCell>
             <StyledTableCell align="right">
               <b>Phone</b>
