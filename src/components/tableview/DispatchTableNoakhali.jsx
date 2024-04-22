@@ -28,7 +28,7 @@ function DispatchTableNoakhali({ resultList }) {
           <TableHead>
             <StyledTableRow>
               <StyledTableCell><b>Serial</b></StyledTableCell>
-              <StyledTableCell align="right"><b>Receipt Number</b></StyledTableCell>
+              {/* <StyledTableCell align="right"><b>Receipt Number</b></StyledTableCell> */}
               <StyledTableCell align="right"><b>Date</b></StyledTableCell>
               <StyledTableCell align="right"><b>Distributor</b></StyledTableCell>
               <StyledTableCell align="right"><b>Distribution Point</b></StyledTableCell>
@@ -49,7 +49,7 @@ function DispatchTableNoakhali({ resultList }) {
                 <TableCell component="th" scope="row">
                   {idx+1}
                 </TableCell>
-                <StyledTableCell align="right">{row.ReceiptNumber}</StyledTableCell>
+                {/* <StyledTableCell align="right">{row.ReceiptNumber}</StyledTableCell> */}
                 <StyledTableCell align="right">{new Date(row.Date).toLocaleString()}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>

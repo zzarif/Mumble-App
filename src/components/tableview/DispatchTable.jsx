@@ -28,7 +28,7 @@ function DispatchTable({ resultList, totalAmount }) {
           <TableHead>
             <StyledTableRow>
               <StyledTableCell><b>Serial</b></StyledTableCell>
-              <StyledTableCell align="right"><b>Receipt Number</b></StyledTableCell>
+              {/* <StyledTableCell align="right"><b>Receipt Number</b></StyledTableCell> */}
               <StyledTableCell align="right"><b>Date</b></StyledTableCell>
               <StyledTableCell align="right"><b>Distribution Point</b></StyledTableCell>
               <StyledTableCell align="right"><b>Distributor</b></StyledTableCell>
@@ -50,7 +50,7 @@ function DispatchTable({ resultList, totalAmount }) {
                 <TableCell component="th" scope="row">
                   {idx+1}
                 </TableCell>
-                <StyledTableCell align="right">{row.ReceiptNumber}</StyledTableCell>
+                {/* <StyledTableCell align="right">{row.ReceiptNumber}</StyledTableCell> */}
                 <StyledTableCell align="right">{new Date(row.Date).toLocaleString()}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
@@ -68,7 +68,7 @@ function DispatchTable({ resultList, totalAmount }) {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <StyledTableCell component="th" scope="row"></StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
+                {/* <StyledTableCell align="right"></StyledTableCell> */}
                 <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
