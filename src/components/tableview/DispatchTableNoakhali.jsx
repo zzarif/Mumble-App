@@ -53,9 +53,9 @@ function DispatchTableNoakhali({ resultList }) {
                 <StyledTableCell align="right">{new Date(row.Date).toLocaleString()}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
-                <StyledTableCell align="right">{row.ShopKeeper.district}</StyledTableCell>
-                <StyledTableCell align="right">{row.ShopKeeper.upzila}</StyledTableCell>
-                <StyledTableCell align="right">{row.ShopKeeper.strUnion?row.ShopKeeper.strUnion:"--"}</StyledTableCell>
+                <StyledTableCell align="right">{row.Girl.strDistrict}</StyledTableCell>
+                <StyledTableCell align="right">{row.Girl.strSubLocation}</StyledTableCell>
+                <StyledTableCell align="right">{row.Girl.strUnion?row.Girl.strUnion:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.Girl?row.Girl.strName:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.Girl?row.Girl.strPhone:"--"}</StyledTableCell>
               </StyledTableRow>
