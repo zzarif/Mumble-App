@@ -22,6 +22,7 @@ import { select_styles } from "../../constants/select_styles";
 import FacebookCircularProgress from "../../components/fbspinner/FacebookCircularProgress";
 import { centered } from "../../styles/centered";
 import DispatchTableNoakhali from "../../components/tableview/DispatchTableNoakhali";
+import DownloadDispatchesAsPDF from "../../components/pdf-manager/DownloadDispatchesAsPDF";
 
 function Dispatches() {
   // today date mm/dd/yyyy
@@ -115,7 +116,10 @@ function Dispatches() {
 
   return (
     <>
-      <div className={styles.pageTitle}>Dispatches</div>
+      <div className={styles.titleContainer}>
+        <div className={styles.pageTitle}>Dispatches</div>
+        <DownloadDispatchesAsPDF district={district} upozilla={upozilla} shopname={shopname} startDate={startDate} endDate={endDate}/>
+      </div>
       <div className={styles.bigContainer}>
         <div className={styles.colContainer}>
           <div className={styles.rowContainer0}>

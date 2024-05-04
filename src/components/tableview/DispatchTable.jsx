@@ -51,7 +51,7 @@ function DispatchTable({ resultList, totalAmount }) {
                   {idx+1}
                 </TableCell>
                 {/* <StyledTableCell align="right">{row.ReceiptNumber}</StyledTableCell> */}
-                <StyledTableCell align="right">{new Date(row.Date).toLocaleString()}</StyledTableCell>
+                <StyledTableCell align="right">{new Date(row.Date).toLocaleDateString()}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
                 <StyledTableCell align="right">{row.Girl.strDistrict}</StyledTableCell>
@@ -62,13 +62,12 @@ function DispatchTable({ resultList, totalAmount }) {
                 <StyledTableCell align="right">{row.grossamt}</StyledTableCell>
               </StyledTableRow>
             ))}
-            {totalAmount && (
+            {/* {totalAmount && (
               <StyledTableRow
                 key={-1}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <StyledTableCell component="th" scope="row"></StyledTableCell>
-                {/* <StyledTableCell align="right"></StyledTableCell> */}
                 <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
@@ -79,7 +78,7 @@ function DispatchTable({ resultList, totalAmount }) {
                 <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right"><b>Total: {totalAmount}</b></StyledTableCell>
               </StyledTableRow>
-            )}
+            )} */}
           </TableBody>
         </Table>
       </TableContainer>
