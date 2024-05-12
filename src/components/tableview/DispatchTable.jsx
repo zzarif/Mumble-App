@@ -54,9 +54,9 @@ function DispatchTable({ resultList, totalAmount }) {
                 <StyledTableCell align="right">{new Date(row.Date).toLocaleDateString()}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.shopname}</StyledTableCell>
                 <StyledTableCell align="right">{row.ShopKeeper.name}</StyledTableCell>
-                <StyledTableCell align="right">{row.Girl.strDistrict}</StyledTableCell>
-                <StyledTableCell align="right">{row.Girl.strSubLocation}</StyledTableCell>
-                <StyledTableCell align="right">{row.Girl.strUnion?row.Girl.strUnion:"--"}</StyledTableCell>
+                <StyledTableCell align="right">{row.Girl?row.Girl.strDistrict:"--"}</StyledTableCell>
+                <StyledTableCell align="right">{row.Girl?row.Girl.strSubLocation:"--"}</StyledTableCell>
+                <StyledTableCell align="right">{row.Girl?row.Girl.strUnion:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.Girl?row.Girl.strName:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.Girl?row.Girl.strPhone:"--"}</StyledTableCell>
                 <StyledTableCell align="right">{row.grossamt}</StyledTableCell>
